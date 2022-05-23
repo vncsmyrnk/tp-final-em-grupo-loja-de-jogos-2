@@ -13,6 +13,30 @@ public abstract class Cliente {
 
     }
 
+    public LinkedList<Compra> getCompras() {
+        return compras;
+    }
+
+    public void setCompras(LinkedList<Compra> compras) {
+        this.compras = compras;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
+
     public String historico() {
         return "";
     }
