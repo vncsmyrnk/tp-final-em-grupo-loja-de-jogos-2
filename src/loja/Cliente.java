@@ -39,12 +39,15 @@ public abstract class Cliente {
     public String toString(){
         StringBuilder relat = new StringBuilder();
         relat.append("=====================\n");
-        relat.append("Compra== "+this.idCompra+" - "+this.dataCompra.dataFormatada()+"\n");
-        for(int i = 0; i < this.qtdAtualJogos; i++) {
-            relat.append(this.jogos[i]+"\n");
+        relat.append("Compra== "+this.idCompra+" - "+this.dataCompra.formatarData()+"\n");
+        for(Compra compra : this.compras) {
+            relat.append(compra.toString()+"\n");
         }
         relat.append("=====================\n");
         relat.append("TOTAL DA COMPRA: R$"+this.valorTotal());
         return relat.toString();
     }
 }
+
+
+
