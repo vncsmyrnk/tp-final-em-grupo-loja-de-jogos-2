@@ -9,6 +9,12 @@ public abstract class Cliente {
     private String senha;
     private LinkedList<Compra> compras;
 
+    public Cliente(String nome, String nomeUsuario, String senha) {
+        this.nome = nome;
+        this.nomeUsuario = nomeUsuario;
+        this.senha = senha;
+    }
+
     public void adicionarCompra(Compra c) {
 
     }
@@ -44,15 +50,12 @@ public abstract class Cliente {
 
     public String historico(LocalDate data) {
 
-
-
-        return "return "HISTORICO DO CLIENTE\n" + this.toString();";
+        return "HISTORICO DO CLIENTE\n" + this.toString();
     }
 
     public String historico(String categoria) {
 
-
-        return "return "HISTORICO DO CLIENTE\n" + this.toString();";
+        return "HISTORICO DO CLIENTE\n" + this.toString();
     }
 
     public Double valorTotal() {
@@ -60,18 +63,15 @@ public abstract class Cliente {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder relat = new StringBuilder();
         relat.append("=====================\n");
-        relat.append("Compra== "+this.idCompra+" - "+this.dataCompra.formatarData()+"\n");
-        for(Compra compra : this.compras) {
-            relat.append(compra.toString()+"\n");
+        relat.append("Cliente==" + this.nome + "\n");
+        for (Compra compra : this.compras) {
+            relat.append(compra.toString() + "\n");
         }
         relat.append("=====================\n");
-        relat.append("TOTAL DA COMPRA: R$"+this.valorTotal());
+        relat.append("TOTAL DA COMPRA: R$" + this.valorTotal());
         return relat.toString();
     }
 }
-
-
-
