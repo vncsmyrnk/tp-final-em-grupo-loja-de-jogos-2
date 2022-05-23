@@ -38,18 +38,40 @@ public abstract class Cliente {
     }
 
     public String historico() {
-        return "";
+
+        return "HISTORICO DO CLIENTE\n" + this.toString();
     }
 
     public String historico(LocalDate data) {
-        return "";
+
+
+
+        return "return "HISTORICO DO CLIENTE\n" + this.toString();";
     }
 
     public String historico(String categoria) {
-        return "";
+
+
+        return "return "HISTORICO DO CLIENTE\n" + this.toString();";
     }
 
     public Double valorTotal() {
         return 0d;
     }
+
+    @Override
+    public String toString(){
+        StringBuilder relat = new StringBuilder();
+        relat.append("=====================\n");
+        relat.append("Compra== "+this.idCompra+" - "+this.dataCompra.formatarData()+"\n");
+        for(Compra compra : this.compras) {
+            relat.append(compra.toString()+"\n");
+        }
+        relat.append("=====================\n");
+        relat.append("TOTAL DA COMPRA: R$"+this.valorTotal());
+        return relat.toString();
+    }
 }
+
+
+
