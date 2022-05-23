@@ -1,9 +1,20 @@
 package loja;
 
 public abstract class Jogo {
-    protected double precoOriginal;
-    protected double modificadorPreco;
+    protected String nome;
+    protected String descricao;
+    protected Double precoOriginal;
+    protected Double modificadorPreco;
     protected String descricaoCategoria;
 
-    public abstract double valorFinalJogo();
+    public Jogo(String nome, String descricao, Double precoOriginal, Double modificadorPreco) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.precoOriginal = precoOriginal;
+        this.modificadorPreco = modificadorPreco;
+    }
+
+    public final Double valorFinalJogo() {
+        return this.precoOriginal + (this.precoOriginal * this.modificadorPreco);
+    }
 }
