@@ -7,4 +7,20 @@ public abstract class ClienteAssinante {
     private Double valorDesconto;
 
     public abstract Double valorFinalCompra(Compra c);
+
+    public Double getValorDesconto() {
+        return valorDesconto;
+    }
+
+    public void setValorDesconto(Double valorDesconto) {
+        this.valorDesconto = valorDesconto;
+    }
+
+    public Double getValorMensal() {
+        return valorMensal;
+    }
+
+    public void setValorMensal(Double valorMensal) {
+        this.valorMensal = valorMensal;
+    }
 }
