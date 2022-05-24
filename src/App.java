@@ -96,7 +96,7 @@ public class App {
         obj.close();
     }
 
-    public void menuCadastraJogo() {
+    public static void menuCadastraJogo() {
         Scanner teclado = new Scanner(System.in);
 
         int categoria = 0;
@@ -105,6 +105,7 @@ public class App {
         Double preco = 0.0;
         double modificador = 0;
 
+    
         try {
             System.out.println("Qual a categoria do jogo a ser informado?");
             System.out.println("1 - Lançamento");
@@ -146,20 +147,98 @@ public class App {
         Loja.cadastrarJogo(categoria, nome, descricao, preco, modificador);
     }
 
-    public Cliente menuCadastraCliente() {
 
+    public static void menuCompraJogo() {
+        Scanner teclado = new Scanner(System.in);
+        int categoria = 0;
+        String nome = "";
+        String descricao = "";
+        Double preco = 0.0;
+
+    
+        try {
+            System.out.println("Deseja buscar o jogo por?");
+            System.out.println("1 - Nome");
+            System.out.println("2 - Descrição");
+            System.out.println("3 - Preço");
+            System.out.println("4 - Categoria");
+          
+
+            switch (categoria) {
+                case 1:
+                   
+                System.out.println("Digite o nome do jogo desejado:");
+                nome = teclado.nextLine();              
+                    break;
+                case 2:
+                System.out.println("Digite a descrição do jogo desejado:");
+                descricao = teclado.nextLine();      
+     
+                    break;
+                case 3:
+                System.out.println("Digite o preço do jogo desejado:");
+                preco = teclado.nextDouble();
+    
+                    break;
+                case 4:
+                System.out.println("Digite a categoria de jogos desejada :");
+                categoria = teclado.nextInt();  
+                    
+                    break;
+                default:
+                    break;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        teclado.close();
+        Loja.cadastrarJogo(categoria, nome, descricao, preco, categoria);
+    }
+
+    public static void menuCadastraCliente() {
         Scanner teclado = new Scanner(System.in);
 
-        Cliente cliente = new Cliente();
+        int categoria = 0;
+        String nome = "";
+        String usuario = "";
+        String senha = "";
+        String email = "";
 
-        System.out.println("Qual a categoria do cliente a ser informado?");
-        System.out.println("1 - Empolgado");
-        System.out.println("2 - Fanático");
-        System.out.println("3 - Cadastrado");
-        teclado.nextInt(cliente.categoria);
+        try {
+            System.out.println("Qual a categoria do cliente a ser informado?");
+            System.out.println("1 - Empolgado");
+            System.out.println("2 - Fanático");
+            System.out.println("3 - Cadastrado");
+            categoria = teclado.nextInt();
 
+            System.out.println("Digite o nome do Cliente:");
+            nome = teclado.nextLine();
+
+            System.out.println("Digite nome usuário do Cliente:");
+            usuario = teclado.nextLine();
+
+            System.out.println("Digite a senha do do Cliente:");
+            senha = teclado.nextLine();
+
+            switch (categoria) {
+                case 1: Loja.clienteEmpolgado(nome, categoria, usuario, senha);
+                    break;
+                case 2: Loja.clienteFanatico(nome, categoria, usuario, senha);
+                    break;
+                case 3:
+                    System.out.println("Informe qual será o e-mail do cliente");
+                    email = teclado.nextLine();
+                    Loja.clienteCadastrado(nome, categoria, usuario, senha, email);
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+
+        }
         teclado.close();
-        return cliente;
     }
 
     public static void main(String[] args) throws Exception {
@@ -181,7 +260,8 @@ public class App {
                 case 2:
                     menuCadastraCliente();
                     break;
-                case 3:
+                case 3: 
+                    menuCompraJogo();
 
             }
             pausa(teclado);
