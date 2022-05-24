@@ -6,6 +6,7 @@ import java.util.Set;
 import loja.Cliente;
 import loja.Compra;
 import loja.Jogo;
+import loja.Loja;
 
 public class App {
 
@@ -96,49 +97,53 @@ public class App {
     }
 
     public void menuCadastraJogo() {
-
         Scanner teclado = new Scanner(System.in);
 
-        System.out.println("Qual a categoria do jogo a ser informado?");
-        System.out.println("1 - Lançamento");
-        System.out.println("2 - Premium");
-        System.out.println("3 - Regular");
-        System.out.println("4 - Promoção");
-
-        int categoria = teclado.nextInt();
-
-        System.out.println("Digite o nome do jogo:");
-        String nome = teclado.nextLine();
-
-        System.out.println("Digite a descrição do jogo:");
-        String descricao = teclado.nextLine();
-
-        System.out.println("Digite o preço original do jogo:");
-        String preco = teclado.nextLine();
-
-        System.out.println("Digite o modificador de preço do jogo:");
-
+        int categoria = 0;
+        String nome = "";
+        String descricao = "";
+        Double preco = 0.0;
         double modificador = 0;
 
-        switch (categoria) {
-            case 3:
-                System.out.println("Categoria REGULAR");
-                System.out.println("Digite a porcentagem entre 70% e 100%:");
-                modificador = teclado.nextDouble();
-                break;
-            case 4:
-                System.out.println("Categoria PROMOÇÃO");
-                System.out.println("Digite a porcentagem entre 30% e 50%:");
-                modificador = teclado.nextDouble();
-                break;
-            default:
-                break;
+        try {
+            System.out.println("Qual a categoria do jogo a ser informado?");
+            System.out.println("1 - Lançamento");
+            System.out.println("2 - Premium");
+            System.out.println("3 - Regular");
+            System.out.println("4 - Promoção");
+            categoria = teclado.nextInt();
+
+            System.out.println("Digite o nome do jogo:");
+            nome = teclado.nextLine();
+
+            System.out.println("Digite a descrição do jogo:");
+            descricao = teclado.nextLine();
+
+            System.out.println("Digite o preço original do jogo:");
+            preco = teclado.nextDouble();
+
+            System.out.println("Digite o modificador de preço do jogo:");
+            modificador = 0;
+
+            switch (categoria) {
+                case 3:
+                    System.out.println("Categoria REGULAR");
+                    System.out.println("Digite a porcentagem entre 70% e 100%:");
+                    modificador = teclado.nextDouble();
+                    break;
+                case 4:
+                    System.out.println("Categoria PROMOÇÃO");
+                    System.out.println("Digite a porcentagem entre 30% e 50%:");
+                    modificador = teclado.nextDouble();
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
-
         teclado.close();
-        
-        // Loja.cadastraJogo(int categoria, String descricao,  );
-
+        Loja.cadastrarJogo(categoria, nome, descricao, preco, modificador);
     }
 
     public Cliente menuCadastraCliente() {
