@@ -9,16 +9,13 @@ import loja.compra.RegraDescontoCompra;
 import loja.jogo.Regular;
 
 public class RegraRegularMaisOutroGrupo2 extends RegraDescontoCompra {
-    public RegraRegularMaisOutroGrupo2(LinkedList<Jogo> jogos) {
-        super(jogos);
-    }
 
-    public boolean regraEhAplicavel() {
-        List<Jogo> jogosAplicaveis = this.jogos
+    public boolean regraEhAplicavel(LinkedList<Jogo> jogos) {
+        List<Jogo> jogosAplicaveis = jogos
                 .stream()
                 .filter((jogo) -> jogo instanceof Regular)
                 .collect(Collectors.toList());
-        return jogosAplicaveis.size() == 3 && this.jogos.size() >= 4;
+        return jogosAplicaveis.size() == 3 && jogos.size() >= 4;
     }
 
     public Double valorDesconto() {
