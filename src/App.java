@@ -105,6 +105,7 @@ public class App {
         Double preco = 0.0;
         double modificador = 0;
 
+    
         try {
             System.out.println("Qual a categoria do jogo a ser informado?");
             System.out.println("1 - Lançamento");
@@ -144,6 +145,55 @@ public class App {
         }
         teclado.close();
         Loja.cadastrarJogo(categoria, nome, descricao, preco, modificador);
+    }
+
+
+    public void menuComprarJogo() {
+        Scanner teclado = new Scanner(System.in);
+        int categoria = 0;
+        String nome = "";
+        String descricao = "";
+        Double preco = 0.0;
+
+    
+        try {
+            System.out.println("Deseja buscar o jogo por?");
+            System.out.println("1 - Nome");
+            System.out.println("2 - Descrição");
+            System.out.println("3 - Preço");
+            System.out.println("4 - Categoria");
+          
+
+            switch (categoria) {
+                case 1:
+                   
+                System.out.println("Digite o nome do jogo desejado:");
+                nome = teclado.nextLine();              
+                    break;
+                case 2:
+                System.out.println("Digite a descrição do jogo desejado:");
+                descricao = teclado.nextLine();      
+     
+                    break;
+                case 3:
+                System.out.println("Digite o preço do jogo desejado:");
+                preco = teclado.nextDouble();
+    
+                    break;
+                case 4:
+                System.out.println("Digite a categoria de jogos desejada :");
+                categoria = teclado.nextInt();  
+                    
+                    break;
+                default:
+                    break;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        teclado.close();
+        Loja.cadastrarJogo(categoria, nome, descricao, preco, categoria);
     }
 
     public Cliente menuCadastraCliente() {
