@@ -17,6 +17,10 @@ public abstract class Cliente {
         this.senha = senha;
     }
 
+    public static void cadastrarCliente(String nome, int categoria, String nomeUsuario, String senha){
+        
+    }
+
     public void adicionarCompra(Compra c) {
 
     }

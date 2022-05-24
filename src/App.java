@@ -146,20 +146,45 @@ public class App {
         Loja.cadastrarJogo(categoria, nome, descricao, preco, modificador);
     }
 
-    public Cliente menuCadastraCliente() {
-
+    public void menuCadastraCliente() {
         Scanner teclado = new Scanner(System.in);
 
-        Cliente cliente = new Cliente();
+        int categoria = 0;
+        String nome = "";
+        String usuario = "";
+        String senha = "";
+        String email = "";
 
-        System.out.println("Qual a categoria do cliente a ser informado?");
-        System.out.println("1 - Empolgado");
-        System.out.println("2 - Fanático");
-        System.out.println("3 - Cadastrado");
-        teclado.nextInt(cliente.categoria);
+        try {
+            System.out.println("Qual a categoria do cliente a ser informado?");
+            System.out.println("1 - Empolgado");
+            System.out.println("2 - Fanático");
+            System.out.println("3 - Cadastrado");
+            categoria = teclado.nextInt();
 
+            System.out.println("Digite o nome do Cliente:");
+            nome = teclado.nextLine();
+
+            System.out.println("Digite nome usuário do Cliente:");
+            usuario = teclado.nextLine();
+
+            System.out.println("Digite a senha do do Cliente:");
+            senha = teclado.nextLine();
+
+            switch (categoria) {
+                case 3:
+                    System.out.println("Informme qual será o e-mail do cliente");
+                    email = teclado.nextLine();
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+
+        }
         teclado.close();
-        return cliente;
+        Cliente.cadastrarCliente(nome, categoria, usuario, senha);
     }
 
     public static void main(String[] args) throws Exception {
