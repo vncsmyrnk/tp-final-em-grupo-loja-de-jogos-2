@@ -9,17 +9,14 @@ import loja.compra.RegraDescontoCompra;
 import loja.jogo.Premium;
 
 public class RegraPremiumMaisOutroGrupo2 extends RegraDescontoCompra {
-    public RegraPremiumMaisOutroGrupo2(LinkedList<Jogo> jogos) {
-        super(jogos);
-    }
 
-    public boolean regraEhAplicavel() {
-        List<Jogo> jogosAplicaveis = this.jogos
+    public boolean regraEhAplicavel(LinkedList<Jogo> jogos) {
+        List<Jogo> jogosAplicaveis = jogos
                 .stream()
                 .filter((jogo) -> jogo instanceof Premium)
                 .collect(Collectors.toList());
 
-        return jogosAplicaveis.size() >= 2 && this.jogos.size() >= 3;
+        return jogosAplicaveis.size() >= 2 && jogos.size() >= 3;
     }
 
     public Double valorDesconto() {

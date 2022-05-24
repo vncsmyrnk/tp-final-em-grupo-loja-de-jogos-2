@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import loja.compra.DescontoCompra;
 
 public class Compra {
-
+    private DescontoCompra desconto;
     private LinkedList<Jogo> jogosSelecionados;
     private LocalDate data;
 
@@ -45,8 +45,8 @@ public class Compra {
     }
 
     public Double valorDesconto() {
-        DescontoCompra desconto = new DescontoCompra(this);
-        return desconto.calculaDesconto();
+        this.desconto = new DescontoCompra(this.jogosSelecionados);
+        return this.desconto.calculaDesconto();
     }
 
     public LinkedList<Jogo> filtrarJogos() {

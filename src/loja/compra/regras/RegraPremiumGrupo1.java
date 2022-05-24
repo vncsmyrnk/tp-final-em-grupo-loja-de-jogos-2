@@ -10,12 +10,8 @@ import loja.jogo.Premium;
 
 public class RegraPremiumGrupo1 extends RegraDescontoCompra {
 
-    public RegraPremiumGrupo1(LinkedList<Jogo> jogos) {
-        super(jogos);
-    }
-
-    public boolean regraEhAplicavel() {
-        List<Jogo> jogosAplicaveis = this.jogos
+    public boolean regraEhAplicavel(LinkedList<Jogo> jogos) {
+        List<Jogo> jogosAplicaveis = jogos
                 .stream()
                 .filter((jogo) -> jogo instanceof Premium)
                 .collect(Collectors.toList());
