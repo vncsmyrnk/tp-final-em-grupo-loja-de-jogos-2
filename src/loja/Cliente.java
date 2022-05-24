@@ -5,14 +5,12 @@ import java.util.LinkedList;
 
 public abstract class Cliente {
     protected String nome;
-    protected int categoria;
     private String nomeUsuario;
     private String senha;
     private LinkedList<Compra> compras;
 
-    public Cliente(String nome, int categoria, String nomeUsuario, String senha) {
+    public Cliente(String nome, String nomeUsuario, String senha) {
         this.nome = nome;
-        this.categoria = categoria;
         this.nomeUsuario = nomeUsuario;
         this.senha = senha;
     }
