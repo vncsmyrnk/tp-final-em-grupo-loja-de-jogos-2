@@ -5,7 +5,7 @@ public abstract class Jogo {
     protected String descricao;
     protected Double precoOriginal;
     protected Double modificadorPreco;
-    protected String descricaoCategoria;
+    protected String categoria;
 
     public Jogo(String nome, String descricao, Double precoOriginal, Double modificadorPreco) {
         this.nome = nome;
@@ -21,7 +21,7 @@ public abstract class Jogo {
     @Override
     public String toString() {
         StringBuilder relat = new StringBuilder();
-        relat.append("Nome do jogo== " + this.descricaoCategoria + " - " + this.valorFinalJogo() + "\n");
+        relat.append("Nome do jogo: " + this.categoria + " - " + this.valorFinalJogo() + "Descrição: " + this.descricao + " - " + "\n");
         return relat.toString();
     }
 }
