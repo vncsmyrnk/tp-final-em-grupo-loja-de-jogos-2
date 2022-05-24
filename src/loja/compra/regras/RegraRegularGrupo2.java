@@ -9,12 +9,9 @@ import loja.compra.RegraDescontoCompra;
 import loja.jogo.Regular;
 
 public class RegraRegularGrupo2 extends RegraDescontoCompra {
-    public RegraRegularGrupo2(LinkedList<Jogo> jogos) {
-        super(jogos);
-    }
 
-    public boolean regraEhAplicavel() {
-        List<Jogo> jogosAplicaveis = this.jogos
+    public boolean regraEhAplicavel(LinkedList<Jogo> jogos) {
+        List<Jogo> jogosAplicaveis = jogos
                 .stream()
                 .filter((jogo) -> jogo instanceof Regular)
                 .collect(Collectors.toList());
