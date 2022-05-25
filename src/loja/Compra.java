@@ -15,6 +15,11 @@ public class Compra {
         this.jogosSelecionados = jogosSelecionados;
     }
 
+    public Compra(LinkedList<Jogo> jogosSelecionados) {
+        this.data = LocalDate.now();
+        this.jogosSelecionados = jogosSelecionados;
+    }
+
     public Compra(LocalDate data) {
         this.data = data;
         this.jogosSelecionados = new LinkedList<>();

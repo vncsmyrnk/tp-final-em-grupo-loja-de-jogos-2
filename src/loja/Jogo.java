@@ -1,6 +1,8 @@
 package loja;
 
-public abstract class Jogo {
+import java.io.Serializable;
+
+public abstract class Jogo implements Serializable {
     protected String nome;
     protected String descricao;
     protected Double precoOriginal;
@@ -18,10 +20,14 @@ public abstract class Jogo {
         return this.precoOriginal + (this.precoOriginal * this.modificadorPreco);
     }
 
+    public String getNome() {
+        return this.nome;
+    }
+
     @Override
     public String toString() {
         StringBuilder relat = new StringBuilder();
-        relat.append("Nome do jogo: " + this.categoria + " - " + this.valorFinalJogo() + "Descrição: " + this.descricao + " - " + "\n");
+        relat.append("Nome do jogo: " + this.nome + "; Valor: " + this.valorFinalJogo() + "; Descrição: " + this.descricao + " - " + "\n");
         return relat.toString();
     }
 }

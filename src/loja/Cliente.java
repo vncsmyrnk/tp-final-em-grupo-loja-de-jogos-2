@@ -1,9 +1,10 @@
 package loja;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
-public abstract class Cliente {
+public abstract class Cliente implements Serializable {
     protected String nome;
     private String nomeUsuario;
     private String senha;
@@ -13,6 +14,7 @@ public abstract class Cliente {
         this.nome = nome;
         this.nomeUsuario = nomeUsuario;
         this.senha = senha;
+        this.compras = new LinkedList<>();
     }
 
     public void adicionarCompra(Compra c) {
@@ -62,11 +64,15 @@ public abstract class Cliente {
         return 0d;
     }
 
+    public String getNome() {
+        return this.nome;
+    }
+
     @Override
     public String toString() {
         StringBuilder relat = new StringBuilder();
         relat.append("=====================\n");
-        relat.append("Cliente==" + this.nome + "\n");
+        relat.append("Nome cliente: " + this.nome + "\n");
         for (Compra compra : this.compras) {
             relat.append(compra.toString() + "\n");
         }
@@ -75,3 +81,4 @@ public abstract class Cliente {
         return relat.toString();
     }
 }
+
