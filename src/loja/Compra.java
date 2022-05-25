@@ -1,11 +1,12 @@
 package loja;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
 import loja.compra.DescontoCompra;
 
-public class Compra {
+public class Compra implements Serializable {
     private DescontoCompra desconto;
     private LinkedList<Jogo> jogosSelecionados;
     private LocalDate data;
@@ -62,16 +63,18 @@ public class Compra {
         return this.jogosSelecionados;
     }
 
+    public String dados() {
+        StringBuilder relat = new StringBuilder();
+        relat.append("\tData: " + Util.formatarData(this.data) + "\n");
+        for (Jogo jogo : this.jogosSelecionados) {
+            relat.append(jogo.dados() + "\n");
+        }
+        relat.append("\tTotal compra: R$" + this.valor());
+        return relat.toString();
+    }
+
     @Override
     public String toString() {
-        StringBuilder relat = new StringBuilder();
-        relat.append("=====================\n");
-        relat.append("Compra== - " + Util.formatarData(this.data) + "\n");
-        for (Jogo jogo : this.jogosSelecionados) {
-            relat.append(jogo.toString() + "\n");
-        }
-        relat.append("=====================\n");
-        relat.append("TOTAL DA COMPRA: R$" + this.valor());
-        return relat.toString();
+        return "Data: " + Util.formatarData(this.data) + "; Valor compra: " + this.valor();
     }
 }

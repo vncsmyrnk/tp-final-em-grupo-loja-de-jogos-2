@@ -18,7 +18,7 @@ public abstract class Cliente implements Serializable {
     }
 
     public void adicionarCompra(Compra c) {
-
+        this.compras.add(c);
     }
 
     public LinkedList<Compra> getCompras() {
@@ -61,24 +61,28 @@ public abstract class Cliente implements Serializable {
     }
 
     public Double valorTotal() {
-        return 0d;
+        return this.compras
+                .stream()
+                .mapToDouble((compra) -> compra.valor())
+                .sum();
     }
 
     public String getNome() {
         return this.nome;
     }
 
-    @Override
-    public String toString() {
+    public String dados() {
         StringBuilder relat = new StringBuilder();
-        relat.append("=====================\n");
         relat.append("Nome cliente: " + this.nome + "\n");
         for (Compra compra : this.compras) {
-            relat.append(compra.toString() + "\n");
+            relat.append(compra.dados() + "\n");
         }
-        relat.append("=====================\n");
-        relat.append("TOTAL DA COMPRA: R$" + this.valorTotal());
+        relat.append("Total gasto: R$" + this.valorTotal() + "\n");
         return relat.toString();
     }
-}
 
+    @Override
+    public String toString() {
+        return "Nome: " + this.nome + "; Usuário: " + this.nomeUsuario;
+    }
+}

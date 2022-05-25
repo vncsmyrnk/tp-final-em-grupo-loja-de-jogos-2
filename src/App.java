@@ -19,7 +19,6 @@ public class App {
     static Scanner teclado;
     static Loja loja;
 
-
     /**
      * "Limpa" a tela (códigos de terminal VT-100)
      */
@@ -43,7 +42,7 @@ public class App {
         System.out.println("2 - Cadastro de clientes");
         System.out.println("3 - Cadastro de compras");
         System.out.println("4 - Listar jogos");
-        System.out.println("5 - Listar clientes");
+        System.out.println("5 - Histórico compras");
         System.out.println("0 - Sair");
 
         // ToDo
@@ -214,79 +213,99 @@ public class App {
     }
 
     public static void menuCompraJogo2() {
-        Cliente c = cadastroClienteCompra();
-        LinkedList<Jogo> jCompra = cadastroJogosCompra();
-        c.adicionarCompra(new Compra(jCompra));
-    }
-
-    public static Cliente cadastroClienteCompra() {
         try {
-            boolean finalizarSelecaoCliente = false;
-            Cliente c = null;
-            while (!finalizarSelecaoCliente) {
-                System.out.println("Nome cliente: ");
-                String nome = teclado.nextLine();
-
-                try {
-                    c = loja.listarClientes()
-                            .stream()
-                            .filter((cliente) -> cliente.getNome() == nome)
-                            .findFirst()
-                            .orElseThrow(() -> new NameNotFoundException());    
-                } catch (NameNotFoundException e) {
-                    System.out.println("Cliente não encontrado...");
-                    continue;
-                }
-
-                System.out.println("Cliente encontrado: ");
-                System.out.println(c);
-                teclado.nextLine();
-                System.out.println("Confirma seleção do cliente? (s/n)");
-                String opc = teclado.nextLine();
-                switch (opc) {
-                    case "n":
-                    case "N":
-                        finalizarSelecaoCliente = true;
-                }
-            }
-            return c;
+            Cliente c = cadastroClienteCompra();
+            LinkedList<Jogo> jCompra = cadastroJogosCompra();
+            c.adicionarCompra(new Compra(jCompra));
         } catch (Exception e) {
-
+            System.out.println(e.getMessage());
         }
-        return null;
     }
 
-    public static LinkedList<Jogo> cadastroJogosCompra() {
-        try {
-            boolean finalizarSelecaoJogo = false;
-            LinkedList<Jogo> jogosCompra = new LinkedList<>();
-            while (!finalizarSelecaoJogo) {
-                System.out.println("Nome jogo: ");
-                String nome = teclado.nextLine();
-                Jogo j = loja.listarJogos()
+    public static Cliente cadastroClienteCompra() throws Exception {
+        boolean finalizarSelecaoCliente = false;
+        Cliente c = null;
+
+        while (!finalizarSelecaoCliente) {
+            System.out.println("Nome cliente (0 p/ sair): ");
+            String nome = teclado.nextLine();
+
+            if (nome.equals("0")) {
+                throw new Exception("Cadastro cancelado");
+            }
+
+            try {
+                c = loja.listarClientes()
                         .stream()
-                        .filter((jogo) -> jogo.getNome() == nome)
+                        .filter((cliente) -> cliente.getNome().equals(nome))
                         .findFirst()
                         .orElseThrow(() -> new NameNotFoundException());
-                System.out.println("Jogo encontrado: ");
-                System.out.println(j);
-                jogosCompra.add(j);
-                teclado.nextLine();
-                System.out.println("Adicionar mais à compra? (s/n)");
-                String opc = teclado.nextLine();
-                switch (opc) {
-                    case "n":
-                    case "N":
-                        finalizarSelecaoJogo = true;
-                }
+            } catch (NameNotFoundException e) {
+                System.out.println("Cliente não encontrado...");
+                continue;
             }
-            return jogosCompra;
-        } catch (NameNotFoundException e) {
-            System.out.println("Jogo não encontrado...");
-        } catch (Exception e) {
 
+            System.out.println("Cliente encontrado: ");
+            System.out.println(c);
+            System.out.println("Confirma seleção do cliente? (s/n)");
+            String opc = teclado.nextLine();
+
+            switch (opc) {
+                case "s":
+                case "S":
+                    finalizarSelecaoCliente = true;
+            }
         }
-        return new LinkedList<>();
+        return c;
+    }
+
+    public static LinkedList<Jogo> cadastroJogosCompra() throws Exception {
+        boolean finalizarSelecaoJogos = false;
+        LinkedList<Jogo> jogos = new LinkedList<>();
+        Jogo j;
+        String opc;
+
+        while (!finalizarSelecaoJogos) {
+            System.out.println("Nome jogo (0 p/ sair): ");
+            String nome = teclado.nextLine();
+
+            if (nome.equals("0")) {
+                throw new Exception("Cadastro cancelado");
+            }
+
+            try {
+                j = loja.listarJogos()
+                        .stream()
+                        .filter((jogo) -> jogo.getNome().equals(nome))
+                        .findFirst()
+                        .orElseThrow(() -> new NameNotFoundException());
+            } catch (NameNotFoundException e) {
+                System.out.println("jogo não encontrado...");
+                continue;
+            }
+
+            System.out.println("Jogo encontrado: ");
+            System.out.println(j);
+            System.out.println("Confirma seleção do jogo? (s/n)");
+            opc = teclado.nextLine();
+
+            switch (opc) {
+                case "n":
+                case "N":
+                    continue;
+            }
+
+            jogos.add(j);
+            System.out.println("Adicionar mais jogos? (s/n)");
+            opc = teclado.nextLine();
+
+            switch (opc) {
+                case "n":
+                case "N":
+                    finalizarSelecaoJogos = true;
+            }
+        }
+        return jogos;
     }
 
     public static void menuCadastraCliente() {
@@ -356,11 +375,13 @@ public class App {
                     break;
                 case 3:
                     menuCompraJogo2();
+                    break;
                 case 4:
                     listarJogos();
+                    break;
                 case 5:
-                    listarClientes();
-
+                    listarClientesHistorico();
+                    break;
             }
             pausa(teclado);
         } while (opcao != 0);
@@ -368,11 +389,15 @@ public class App {
     }
 
     public static void listarJogos() {
-        System.out.println(loja.listarJogos());
+        loja.listarJogos()
+                .stream()
+                .forEach((jogo) -> System.out.println(jogo.toString()));
     }
 
-    public static void listarClientes() {
-        System.out.println(loja.listarClientes());
+    public static void listarClientesHistorico() {
+        loja.listarClientes()
+                .stream()
+                .forEach((cliente) -> System.out.println(cliente.dados()));
     }
 
 }

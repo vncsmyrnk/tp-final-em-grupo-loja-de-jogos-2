@@ -1,11 +1,12 @@
 package loja.compra;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import loja.Jogo;
 import loja.compra.regras.*;
 
-public class DescontoCompra {
+public class DescontoCompra implements Serializable {
     private LinkedList<Jogo> jogos;
     private LinkedList<RegraDescontoCompra> regrasDescontoCompra;
     private LinkedList<RegraDescontoCompra> regrasDescontoAplicaveis;

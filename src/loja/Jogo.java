@@ -24,10 +24,14 @@ public abstract class Jogo implements Serializable {
         return this.nome;
     }
 
+    public String dados() {
+        return "\t\tNome do jogo: " + this.nome + "; Valor: " + this.valorFinalJogo() + "; Descrição: "
+                + this.descricao;
+    }
+
     @Override
     public String toString() {
-        StringBuilder relat = new StringBuilder();
-        relat.append("Nome do jogo: " + this.nome + "; Valor: " + this.valorFinalJogo() + "; Descrição: " + this.descricao + " - " + "\n");
-        return relat.toString();
+        return "Nome do jogo: " + this.nome + "; Valor: " + this.valorFinalJogo() + "; Descrição: "
+                + this.descricao;
     }
 }

@@ -41,15 +41,15 @@ public class Loja {
         this.jogos.add(new Promocao(nome, descricao, preco, modificador));
     }
 
-    public void clienteCadastrado(String nome, int categoria, String nomeUsuario, String senha, String email){
+    public void clienteCadastrado(String nome, int categoria, String nomeUsuario, String senha, String email) {
         this.clientes.add(new Cadastrado(nome, nomeUsuario, senha, email));
     }
 
-    public void clienteFanatico(String nome, int categoria, String nomeUsuario, String senha){
+    public void clienteFanatico(String nome, int categoria, String nomeUsuario, String senha) {
         this.clientes.add(new Fanatico(nome, nomeUsuario, senha));
     }
 
-    public void clienteEmpolgado(String nome, int categoria, String nomeUsuario, String senha){
+    public void clienteEmpolgado(String nome, int categoria, String nomeUsuario, String senha) {
         this.clientes.add(new Empolgado(nome, nomeUsuario, senha));
     }
 
@@ -57,14 +57,14 @@ public class Loja {
         try {
             this.gravaDadosCliente();
             this.gravaDadosJogos();
-        } catch(Exception e) {
-            System.out.println("Não foi possível salvar os dados.");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
     public void gravaDadosCliente() throws IOException {
         FileOutputStream fout = new FileOutputStream(arquivoClientes);
-		ObjectOutputStream oos = new ObjectOutputStream(fout);
+        ObjectOutputStream oos = new ObjectOutputStream(fout);
         for (Cliente c : this.clientes) {
             oos.writeObject(c);
         }
@@ -73,13 +73,13 @@ public class Loja {
 
     public void gravaDadosJogos() throws IOException {
         FileOutputStream fout = new FileOutputStream(arquivojogos);
-		ObjectOutputStream oos = new ObjectOutputStream(fout);
+        ObjectOutputStream oos = new ObjectOutputStream(fout);
         for (Jogo j : this.jogos) {
             oos.writeObject(j);
         }
         oos.close();
     }
-    
+
     public void leDados() {
         try {
             this.jogos = this.leDadosJogos();
@@ -93,24 +93,24 @@ public class Loja {
         LinkedList<Cliente> clientes = new LinkedList<>();
         FileInputStream dados = new FileInputStream(arquivoClientes);
         ObjectInputStream obj = new ObjectInputStream(dados);
-        while(dados.available()!=0 ){
-            Cliente novo = (Cliente)obj.readObject();
+        while (dados.available() != 0) {
+            Cliente novo = (Cliente) obj.readObject();
             clientes.add(novo);
         }
         obj.close();
-        return clientes; 
+        return clientes;
     }
 
     public LinkedList<Jogo> leDadosJogos() throws IOException, ClassNotFoundException {
         LinkedList<Jogo> jogos = new LinkedList<>();
         FileInputStream dados = new FileInputStream(arquivojogos);
         ObjectInputStream obj = new ObjectInputStream(dados);
-        while(dados.available()!=0 ){
+        while (dados.available() != 0) {
             Jogo novo = (Jogo) obj.readObject();
             jogos.add(novo);
         }
         obj.close();
-        return jogos; 
+        return jogos;
     }
 
     public LinkedList<Jogo> listarJogos() {
