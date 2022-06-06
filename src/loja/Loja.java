@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 
+import javax.naming.NameNotFoundException;
+
 import loja.cliente.Cadastrado;
 import loja.cliente.assinante.Empolgado;
 import loja.cliente.assinante.Fanatico;
@@ -119,5 +121,21 @@ public class Loja {
 
     public LinkedList<Cliente> listarClientes() {
         return this.clientes;
+    }
+
+    public Jogo buscaApenasUmJogoPorNome(String nome) throws NameNotFoundException {
+        return this.jogos
+                .stream()
+                .filter((jogo) -> jogo.getNome().equals(nome))
+                .findFirst()
+                .orElseThrow(() -> new NameNotFoundException());
+    }
+
+    public Cliente buscaApenasUmClientePorNome(String nome) throws NameNotFoundException {
+        return this.clientes
+                .stream()
+                .filter((cliente) -> cliente.getNome().equals(nome))
+                .findFirst()
+                .orElseThrow(() -> new NameNotFoundException());
     }
 }

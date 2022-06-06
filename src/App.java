@@ -11,13 +11,46 @@ import loja.Cliente;
 import loja.Compra;
 import loja.Jogo;
 import loja.Loja;
-import loja.jogo.Premium;
 
 public class App {
 
     static String arqDados;
     static Scanner teclado;
     static Loja loja;
+
+    public static void main(String[] args) throws Exception {
+        int opcao = -1;
+        teclado = new Scanner(System.in);
+        loja = new Loja();
+        loja.leDados();
+
+        do {
+            opcao = menu(teclado);
+            limparTela();
+            switch (opcao) {
+                case 0:
+                    loja.gravaDados();
+                    return;
+                case 1:
+                    menuCadastraJogo();
+                    break;
+                case 2:
+                    menuCadastraCliente();
+                    break;
+                case 3:
+                    menuCompraJogo();
+                    break;
+                case 4:
+                    listarJogos();
+                    break;
+                case 5:
+                    listarClientesHistorico();
+                    break;
+            }
+            pausa(teclado);
+        } while (opcao != 0);
+        teclado.close();
+    }
 
     /**
      * "Limpa" a tela (códigos de terminal VT-100)
@@ -170,49 +203,6 @@ public class App {
     }
 
     public static void menuCompraJogo() {
-        int categoria = 0;
-        String nome = "";
-        String descricao = "";
-        Double preco = 0.0;
-
-        try {
-            System.out.println("Deseja buscar o jogo por?");
-            System.out.println("1 - Nome");
-            System.out.println("2 - Descrição");
-            System.out.println("3 - Preço");
-            System.out.println("4 - Categoria");
-
-            int opc = Integer.parseInt(teclado.nextLine());
-            switch (opc) {
-                case 1:
-                    System.out.println("Digite o nome do jogo desejado:");
-                    nome = teclado.nextLine();
-                    break;
-                case 2:
-                    System.out.println("Digite a descrição do jogo desejado:");
-                    descricao = teclado.nextLine();
-
-                    break;
-                case 3:
-                    System.out.println("Digite o preço do jogo desejado:");
-                    preco = teclado.nextDouble();
-
-                    break;
-                case 4:
-                    System.out.println("Digite a categoria de jogos desejada :");
-                    categoria = teclado.nextInt();
-
-                    break;
-                default:
-                    break;
-            }
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    public static void menuCompraJogo2() {
         try {
             Cliente c = cadastroClienteCompra();
             LinkedList<Jogo> jCompra = cadastroJogosCompra();
@@ -223,86 +213,46 @@ public class App {
     }
 
     public static Cliente cadastroClienteCompra() throws Exception {
-        boolean finalizarSelecaoCliente = false;
         Cliente c = null;
 
-        while (!finalizarSelecaoCliente) {
-            System.out.println("Nome cliente (0 p/ sair): ");
-            String nome = teclado.nextLine();
-
-            if (nome.equals("0")) {
-                throw new Exception("Cadastro cancelado");
-            }
-
+        while (true) {
+            String nome = obterString("Nome cliente (0 p/ sair): ", "0");
             try {
-                c = loja.listarClientes()
-                        .stream()
-                        .filter((cliente) -> cliente.getNome().equals(nome))
-                        .findFirst()
-                        .orElseThrow(() -> new NameNotFoundException());
+                c = loja.buscaApenasUmClientePorNome(nome);
+                System.out.println("Cliente encontrado. " + c);
+                interrogaUsuarioSeSim("Confirma seleção do cliente?");
+                break;
             } catch (NameNotFoundException e) {
                 System.out.println("Cliente não encontrado...");
                 continue;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                continue;
             }
 
-            System.out.println("Cliente encontrado: ");
-            System.out.println(c);
-            System.out.println("Confirma seleção do cliente? (s/n)");
-            String opc = teclado.nextLine();
-
-            switch (opc) {
-                case "s":
-                case "S":
-                    finalizarSelecaoCliente = true;
-            }
         }
         return c;
     }
 
     public static LinkedList<Jogo> cadastroJogosCompra() throws Exception {
-        boolean finalizarSelecaoJogos = false;
         LinkedList<Jogo> jogos = new LinkedList<>();
         Jogo j;
-        String opc;
 
-        while (!finalizarSelecaoJogos) {
-            System.out.println("Nome jogo (0 p/ sair): ");
-            String nome = teclado.nextLine();
-
-            if (nome.equals("0")) {
-                throw new Exception("Cadastro cancelado");
-            }
-
+        while (true) {
+            String nome = obterString("Nome jogo (0 p/ sair): ", "0");
             try {
-                j = loja.listarJogos()
-                        .stream()
-                        .filter((jogo) -> jogo.getNome().equals(nome))
-                        .findFirst()
-                        .orElseThrow(() -> new NameNotFoundException());
+                j = loja.buscaApenasUmJogoPorNome(nome);
+                System.out.println("Jogo encontrado. " + j);
+                interrogaUsuarioSeSim("Confirma seleção do jogo?");
+                jogos.add(j);
+                interrogaUsuarioSeNao("Adicionar mais jogos?");
+                break;
             } catch (NameNotFoundException e) {
                 System.out.println("jogo não encontrado...");
                 continue;
-            }
-
-            System.out.println("Jogo encontrado: ");
-            System.out.println(j);
-            System.out.println("Confirma seleção do jogo? (s/n)");
-            opc = teclado.nextLine();
-
-            switch (opc) {
-                case "n":
-                case "N":
-                    continue;
-            }
-
-            jogos.add(j);
-            System.out.println("Adicionar mais jogos? (s/n)");
-            opc = teclado.nextLine();
-
-            switch (opc) {
-                case "n":
-                case "N":
-                    finalizarSelecaoJogos = true;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                continue;
             }
         }
         return jogos;
@@ -351,41 +301,46 @@ public class App {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        int opcao = -1;
-        teclado = new Scanner(System.in);
-        loja = new Loja();
-        loja.leDados();
-        // Jogo jogoCadastrado = null;
-        // Cliente clienteCadastrado = null;
-        // Compra compraCadastrada = null;
+    public static void interrogaUsuarioSeSim(String mensagem) throws Exception {
+        System.out.println(mensagem + " (s/n)");
+        String opc = teclado.nextLine();
 
-        do {
-            opcao = menu(teclado);
-            limparTela();
-            switch (opcao) {
-                case 0:
-                    loja.gravaDados();
-                    return;
-                case 1:
-                    menuCadastraJogo();
-                    break;
-                case 2:
-                    menuCadastraCliente();
-                    break;
-                case 3:
-                    menuCompraJogo2();
-                    break;
-                case 4:
-                    listarJogos();
-                    break;
-                case 5:
-                    listarClientesHistorico();
-                    break;
-            }
-            pausa(teclado);
-        } while (opcao != 0);
-        teclado.close();
+        switch (opc) {
+            case "n":
+            case "N":
+                throw new Exception("Operação cancelada.");
+        }
+    }
+
+    public static void interrogaUsuarioSeNao(String mensagem) throws Exception {
+        System.out.println(mensagem + " (s/n)");
+        String opc = teclado.nextLine();
+
+        switch (opc) {
+            case "s":
+            case "S":
+            case " ":
+                throw new Exception("Operação cancelada.");
+        }
+    }
+
+    public static String obterString(String mensagem, String exceptValue) throws Exception {
+        System.out.println(mensagem);
+        String value = teclado.nextLine();
+        if (value.equals(exceptValue)) {
+            throw new Exception("Operação cancelada");
+        }
+        return value;
+    }
+
+    public static Double obterValorDouble(String mensagem) {
+        System.out.println(mensagem);
+        return Double.parseDouble(teclado.nextLine());
+    }
+
+    public static int obterValorInteger(String mensagem) {
+        System.out.println(mensagem);
+        return Integer.parseInt(teclado.nextLine());
     }
 
     public static void listarJogos() {

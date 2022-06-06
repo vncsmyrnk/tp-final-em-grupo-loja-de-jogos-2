@@ -65,11 +65,11 @@ public class Compra implements Serializable {
 
     public String dados() {
         StringBuilder relat = new StringBuilder();
-        relat.append("\tData: " + Util.formatarData(this.data) + "\n");
+        relat.append("\t\t+ Data: " + Util.formatarData(this.data) + "\n");
         for (Jogo jogo : this.jogosSelecionados) {
             relat.append(jogo.dados() + "\n");
         }
-        relat.append("\tTotal compra: R$" + this.valor());
+        relat.append("\t\t+ Total compra: R$" + this.valor());
         return relat.toString();
     }
 

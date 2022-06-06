@@ -25,7 +25,7 @@ public abstract class Jogo implements Serializable {
     }
 
     public String dados() {
-        return "\t\tNome do jogo: " + this.nome + "; Valor: " + this.valorFinalJogo() + "; Descrição: "
+        return "\t\t\t- Nome do jogo: " + this.nome + "; Valor: " + this.valorFinalJogo() + "; Descrição: "
                 + this.descricao;
     }
 
