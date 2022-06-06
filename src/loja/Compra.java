@@ -4,26 +4,30 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
-import loja.compra.DescontoCompra;
+import loja.compra.Desconto;
 
 public class Compra implements Serializable {
-    private DescontoCompra desconto;
+    // private DescontoCompra desconto;
+    private Desconto desconto;
     private LinkedList<Jogo> jogosSelecionados;
     private LocalDate data;
 
     public Compra(LocalDate data, LinkedList<Jogo> jogosSelecionados) {
         this.data = data;
         this.jogosSelecionados = jogosSelecionados;
+        this.desconto = new Desconto(jogosSelecionados);
     }
 
     public Compra(LinkedList<Jogo> jogosSelecionados) {
         this.data = LocalDate.now();
         this.jogosSelecionados = jogosSelecionados;
+        this.desconto = new Desconto(jogosSelecionados);
     }
 
     public Compra(LocalDate data) {
         this.data = data;
         this.jogosSelecionados = new LinkedList<>();
+        this.desconto = new Desconto(jogosSelecionados);
     }
 
     public void adicionarJogo(Jogo jogo) {
@@ -51,7 +55,6 @@ public class Compra implements Serializable {
     }
 
     public Double valorDesconto() {
-        this.desconto = new DescontoCompra(this.jogosSelecionados);
         return this.desconto.calculaDesconto();
     }
 
