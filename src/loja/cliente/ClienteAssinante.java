@@ -3,7 +3,7 @@ package loja.cliente;
 import loja.Cliente;
 import loja.Compra;
 
-public abstract class ClienteAssinante extends Cliente implements ClienteCalculavelValorFinal {
+public abstract class ClienteAssinante extends Cliente {
     protected Double valorMensal;
     protected Double valorDesconto;
 

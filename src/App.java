@@ -79,13 +79,13 @@ public class App {
         System.out.println("0 - Sair");
 
         // ToDo
-        // Revisar cadastros
-        // Cadastrar compra
-        // Opção de historico do cliente
-        // Valor de uma compra
-        // Valor mensal (total)
-        // Valor médio
-        // Jogos extremos
+        // [-] Revisar cadastros
+        // [x] Cadastrar compra
+        // [-] Opção de historico do cliente
+        // [x] Valor de uma compra
+        // [x] Valor mensal (total)
+        // [x] Valor médio
+        // [ ] Jogos extremos
 
         int opcao = teclado.nextInt();
         teclado.nextLine();

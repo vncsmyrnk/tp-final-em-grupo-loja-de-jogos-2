@@ -3,7 +3,7 @@ package loja.cliente;
 import loja.Cliente;
 import loja.Compra;
 
-public class Cadastrado extends Cliente implements ClienteCalculavelValorFinal {
+public class Cadastrado extends Cliente {
     private String email;
     public static final String DESCRICAO = "Cadastrado";
 

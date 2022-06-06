@@ -20,6 +20,8 @@ public abstract class Cliente implements Serializable {
 
     public abstract String descricao();
 
+    public abstract Double valorFinalCompra(Compra c);
+
     public void adicionarCompra(Compra c) {
         this.compras.add(c);
     }
@@ -27,8 +29,16 @@ public abstract class Cliente implements Serializable {
     public Double valorTotal() {
         return this.compras
                 .stream()
-                .mapToDouble((compra) -> compra.valor())
+                .mapToDouble((compra) -> this.valorFinalCompra(compra))
                 .sum();
+    }
+
+    public int quantidadeCompras() {
+        return this.compras.size();
+    }
+
+    public Double valorMedio() {
+        return valorTotal() / this.quantidadeCompras();
     }
 
     public String dados() {

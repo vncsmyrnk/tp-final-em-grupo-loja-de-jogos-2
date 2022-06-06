@@ -27,32 +27,40 @@ public class Loja {
 
     }
 
+    public void cadastraCliente(Cliente cliente) {
+        this.clientes.add(cliente);
+    }
+
+    public void cadastraJogo(Jogo jogo) {
+        this.jogos.add(jogo);
+    }
+
     public void cadastrarLancamento(String nome, String descricao, double preco) {
-        this.jogos.add(new Lancamento(nome, descricao, preco));
+        this.cadastraJogo(new Lancamento(nome, descricao, preco));
     }
 
     public void cadastrarPremium(String nome, String descricao, double preco) {
-        this.jogos.add(new Premium(nome, descricao, preco));
+        this.cadastraJogo(new Premium(nome, descricao, preco));
     }
 
     public void cadastrarRegular(String nome, String descricao, double preco, double modificador) {
-        this.jogos.add(new Regular(nome, descricao, preco, modificador));
+        this.cadastraJogo(new Regular(nome, descricao, preco, modificador));
     }
 
     public void cadastrarPromocao(String nome, String descricao, double preco, double modificador) {
-        this.jogos.add(new Promocao(nome, descricao, preco, modificador));
+        this.cadastraJogo(new Promocao(nome, descricao, preco, modificador));
     }
 
     public void clienteCadastrado(String nome, int categoria, String nomeUsuario, String senha, String email) {
-        this.clientes.add(new Cadastrado(nome, nomeUsuario, senha, email));
+        this.cadastraCliente(new Cadastrado(nome, nomeUsuario, senha, email));
     }
 
     public void clienteFanatico(String nome, int categoria, String nomeUsuario, String senha) {
-        this.clientes.add(new Fanatico(nome, nomeUsuario, senha));
+        this.cadastraCliente(new Fanatico(nome, nomeUsuario, senha));
     }
 
     public void clienteEmpolgado(String nome, int categoria, String nomeUsuario, String senha) {
-        this.clientes.add(new Empolgado(nome, nomeUsuario, senha));
+        this.cadastraCliente(new Empolgado(nome, nomeUsuario, senha));
     }
 
     public void gravaDados() {
@@ -137,5 +145,23 @@ public class Loja {
                 .filter((cliente) -> cliente.getNome().equals(nome))
                 .findFirst()
                 .orElseThrow(() -> new NameNotFoundException());
+    }
+
+    public Double valorTotalVendido() {
+        return this.clientes
+                .stream()
+                .mapToDouble((cliente) -> cliente.valorTotal())
+                .sum();
+    }
+
+    public int quantidadeCompras() {
+        return this.clientes
+                .stream()
+                .mapToInt((cliente) -> cliente.quantidadeCompras())
+                .sum();
+    }
+
+    public Double valorMedioCompras() {
+        return this.valorTotalVendido() / this.quantidadeCompras();
     }
 }
