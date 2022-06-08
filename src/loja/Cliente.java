@@ -56,13 +56,14 @@ public abstract class Cliente implements Serializable {
 
     private String dados(LinkedList<Compra> comprasCliente) {
         StringBuilder relat = new StringBuilder();
-        relat.append("> " + this.toString() + " ( " + this.descricao() + "\n");
+        relat.append("> " + this.toString() + " (" + this.descricao() + ")\n");
         for (Compra compra : comprasCliente) {
-            relat.append("\t-- Compra " + compra.hashCode() + " --\n");
+            relat.append("\t> Compra " + compra.hashCode() + "\n");
             relat.append(compra.dados() + "\n");
-            relat.append("\t-- " + compra.hashCode() + " --\n");
+            relat.append("\t< Valor a ser pago: R$ " + this.valorFinalCompra(compra) + "\n");
+            relat.append("\t< " + compra.hashCode() + "\n");
         }
-        relat.append("< Total gasto: R$" + this.valorTotal() + "\n");
+        relat.append("< Total gasto: R$ " + this.valorTotal() + "\n");
         return relat.toString();
     }
 

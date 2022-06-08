@@ -72,7 +72,7 @@ public class Compra implements Serializable {
         for (Jogo jogo : this.jogosSelecionados) {
             relat.append(jogo.dados() + "\n");
         }
-        relat.append("\t\t+ Total compra: R$" + this.valor());
+        relat.append("\t\t+ Total compra: R$ " + this.valor());
         return relat.toString();
     }
 

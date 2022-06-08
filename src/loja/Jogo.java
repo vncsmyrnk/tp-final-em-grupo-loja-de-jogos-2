@@ -7,7 +7,6 @@ public abstract class Jogo implements Serializable {
     protected String descricao;
     protected Double precoOriginal;
     protected Double modificadorPreco;
-    protected String categoria;
 
     public Jogo(String nome, String descricao, Double precoOriginal, Double modificadorPreco) {
         this.nome = nome;
@@ -15,6 +14,8 @@ public abstract class Jogo implements Serializable {
         this.precoOriginal = precoOriginal;
         this.modificadorPreco = modificadorPreco;
     }
+
+    public abstract String descricao();
 
     public final Double valorFinalJogo() {
         return this.precoOriginal + (this.precoOriginal * this.modificadorPreco);
@@ -25,13 +26,15 @@ public abstract class Jogo implements Serializable {
     }
 
     public String dados() {
-        return "\t\t\t- Nome do jogo: " + this.nome + "; Valor: " + this.valorFinalJogo() + "; Descrição: "
+        return "\t\t\t- [" + this.descricao() + "] Nome: " + this.nome + "; Valor: R$ " + this.valorFinalJogo()
+                + "; Descrição: "
                 + this.descricao;
     }
 
     @Override
     public String toString() {
-        return "Nome do jogo: " + this.nome + "; Valor: " + this.valorFinalJogo() + "; Descrição: "
+        return "[" + this.descricao() + "] Nome do jogo: " + this.nome + "; Valor: R$ " + this.valorFinalJogo()
+                + "; Descrição: "
                 + this.descricao;
     }
 }

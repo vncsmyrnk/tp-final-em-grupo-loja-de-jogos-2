@@ -46,6 +46,9 @@ public class App {
                 case 5:
                     listarClientesHistorico();
                     break;
+                case 6:
+                    listarEstatisticasLoja();
+                    break;
             }
             pausa(teclado);
         } while (opcao != 0);
@@ -76,6 +79,7 @@ public class App {
         System.out.println("3 - Cadastro de compras");
         System.out.println("4 - Listar jogos");
         System.out.println("5 - Histórico compras");
+        System.out.println("6 - Estatísticas da loja");
         System.out.println("0 - Sair");
 
         // ToDo
@@ -161,7 +165,7 @@ public class App {
             System.out.println("2 - Premium");
             System.out.println("3 - Regular");
             System.out.println("4 - Promoção");
-            categoria = Integer.parseInt(teclado.nextLine());
+            categoria = Integer.parseInt(obterString("0 - Cancelar", "0"));
 
             System.out.println("Digite o nome do jogo:");
             nome = teclado.nextLine();
@@ -184,21 +188,19 @@ public class App {
                     break;
                 case 3:
                     System.out.println("Categoria REGULAR");
-                    System.out.println("Digite a porcentagem entre 70% e 100%:");
-                    modificador = teclado.nextDouble();
-                    loja.cadastrarRegular(nome, descricao, preco, modificador);
+                    modificador = obterValorDouble("Digite a porcentagem entre 70% e 100%:", 70d, 100d);
+                    loja.cadastrarRegular(nome, descricao, preco, modificador / 100);
                     break;
                 case 4:
                     System.out.println("Categoria PROMOÇÃO");
-                    System.out.println("Digite a porcentagem entre 30% e 50%:");
-                    modificador = teclado.nextDouble();
-                    loja.cadastrarPromocao(nome, descricao, preco, modificador);
+                    modificador = obterValorDouble("Digite a porcentagem entre 30% e 50%:", 30d, 50d);
+                    loja.cadastrarPromocao(nome, descricao, preco, modificador / 100);
                     break;
                 default:
                     break;
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -270,7 +272,7 @@ public class App {
             System.out.println("1 - Empolgado");
             System.out.println("2 - Fanático");
             System.out.println("3 - Cadastrado");
-            categoria = Integer.parseInt(teclado.nextLine());
+            categoria = Integer.parseInt(obterString("0 - Cancelar", "0"));
 
             System.out.println("Digite o nome do Cliente:");
             nome = teclado.nextLine();
@@ -297,7 +299,7 @@ public class App {
                     break;
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -338,6 +340,21 @@ public class App {
         return Double.parseDouble(teclado.nextLine());
     }
 
+    public static Double obterValorDouble(String mensagem, Double minValue, Double maxValue) {
+        while (true) {
+            try {
+                teclado.nextLine();
+                Double value = obterValorDouble(mensagem);
+                if (value > maxValue || value < minValue)
+                    throw new Exception("Valor inválido. Pressione <enter> e tente novamente.");
+                return value;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                continue;
+            }
+        }
+    }
+
     public static int obterValorInteger(String mensagem) {
         System.out.println(mensagem);
         return Integer.parseInt(teclado.nextLine());
@@ -353,6 +370,11 @@ public class App {
         loja.listarClientes()
                 .stream()
                 .forEach((cliente) -> System.out.println(cliente.dados()));
+    }
+
+    public static void listarEstatisticasLoja() {
+        System.out.println("Valor total gasto em compras: R$ " + loja.valorTotalVendido());
+        System.out.println("Valor médio gasto em compras: R$ " + loja.valorMedioCompras());
     }
 
 }
