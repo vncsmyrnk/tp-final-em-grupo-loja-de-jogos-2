@@ -3,10 +3,12 @@ package testes;
 import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
 
 import org.junit.Test;
 
 import loja.Compra;
+import loja.Jogo;
 import loja.Loja;
 import loja.cliente.Cadastrado;
 import loja.cliente.assinante.Empolgado;
@@ -107,5 +109,244 @@ public class LojaTest {
 
         Double valorFinalEsperado = 351.55;
         assertEquals(valorFinalEsperado, j.valorMedioCompras());
+    }
+
+    @Test
+    public void testLojaJogoMaisVendido() {
+        Premium j1 = new Premium("Jogo 1", "Outro jogo qualquer", 110d);
+        Regular j2 = new Regular("Jogo 2", "Um jogo qualquer", 100d, 0d);
+        Regular j3 = new Regular("Jogo 3", "Outro jogo qualquer", 105d, -0.15);
+        Regular j4 = new Regular("Jogo 4", "Mais um jogo qualquer", 120d, -0.2);
+        Premium j5 = new Premium("Jogo 5", "Outro jogo qualquer", 110d);
+
+        Cadastrado c1 = new Cadastrado("Cliente 1", "c1", "1", "email@exemlo.com");
+        Compra comp1 = new Compra(LocalDate.now());
+        comp1.adicionarJogo(j1);
+        comp1.adicionarJogo(j2);
+        comp1.adicionarJogo(j2);
+        comp1.adicionarJogo(j4);
+
+        Compra comp2 = new Compra(LocalDate.now());
+        comp2.adicionarJogo(j5);
+        comp2.adicionarJogo(j2);
+        comp2.adicionarJogo(j1);
+
+        c1.adicionarCompra(comp1);
+        c1.adicionarCompra(comp2);
+
+        Cadastrado c2 = new Cadastrado("Cliente 2", "c2", "2", "email@exemplo.com");
+        Compra comp3 = new Compra(LocalDate.now());
+
+        comp3.adicionarJogo(j4);
+        comp3.adicionarJogo(j3);
+        comp3.adicionarJogo(j3);
+        comp3.adicionarJogo(j2);
+
+        c2.adicionarCompra(comp3);
+
+        Loja j = new Loja();
+        j.cadastraCliente(c1);
+        j.cadastraCliente(c2);
+        j.cadastraJogo(j1);
+        j.cadastraJogo(j2);
+        j.cadastraJogo(j3);
+        j.cadastraJogo(j4);
+        j.cadastraJogo(j5);
+
+        Jogo jogoMaisVendido = j2;
+        assertEquals(jogoMaisVendido, j.jogoMaisVendido());
+    }
+
+    @Test
+    public void testLojaJogoMenosVendido() {
+        Premium j1 = new Premium("Jogo 1", "Outro jogo qualquer", 110d);
+        Regular j2 = new Regular("Jogo 2", "Um jogo qualquer", 100d, 0d);
+        Regular j3 = new Regular("Jogo 3", "Outro jogo qualquer", 105d, -0.15);
+        Regular j4 = new Regular("Jogo 4", "Mais um jogo qualquer", 120d, -0.2);
+        Premium j5 = new Premium("Jogo 5", "Outro jogo qualquer", 110d);
+
+        Cadastrado c1 = new Cadastrado("Cliente 1", "c1", "1", "email@exemlo.com");
+        Compra comp1 = new Compra(LocalDate.now());
+        comp1.adicionarJogo(j1);
+        comp1.adicionarJogo(j2);
+        comp1.adicionarJogo(j2);
+        comp1.adicionarJogo(j4);
+
+        Compra comp2 = new Compra(LocalDate.now());
+        comp2.adicionarJogo(j5);
+        comp2.adicionarJogo(j2);
+        comp2.adicionarJogo(j1);
+
+        c1.adicionarCompra(comp1);
+        c1.adicionarCompra(comp2);
+
+        Cadastrado c2 = new Cadastrado("Cliente 2", "c2", "2", "email@exemplo.com");
+        Compra comp3 = new Compra(LocalDate.now());
+
+        comp3.adicionarJogo(j4);
+        comp3.adicionarJogo(j3);
+        comp3.adicionarJogo(j3);
+        comp3.adicionarJogo(j2);
+
+        c2.adicionarCompra(comp3);
+
+        Loja j = new Loja();
+        j.cadastraCliente(c1);
+        j.cadastraCliente(c2);
+        j.cadastraJogo(j1);
+        j.cadastraJogo(j2);
+        j.cadastraJogo(j3);
+        j.cadastraJogo(j4);
+        j.cadastraJogo(j5);
+
+        Jogo jogoMenosVendido = j5;
+        assertEquals(jogoMenosVendido, j.jogoMenosVendido());
+    }
+
+    @Test
+    public void testLojaJogoVezesComprado() {
+        Premium j1 = new Premium("Jogo 1", "Outro jogo qualquer", 110d);
+        Regular j2 = new Regular("Jogo 2", "Um jogo qualquer", 100d, 0d);
+        Regular j3 = new Regular("Jogo 3", "Outro jogo qualquer", 105d, -0.15);
+        Regular j4 = new Regular("Jogo 4", "Mais um jogo qualquer", 120d, -0.2);
+        Premium j5 = new Premium("Jogo 5", "Outro jogo qualquer", 110d);
+
+        Cadastrado c1 = new Cadastrado("Cliente 1", "c1", "1", "email@exemlo.com");
+        Compra comp1 = new Compra(LocalDate.now());
+        comp1.adicionarJogo(j1);
+        comp1.adicionarJogo(j2);
+        comp1.adicionarJogo(j2);
+        comp1.adicionarJogo(j4);
+
+        Compra comp2 = new Compra(LocalDate.now());
+        comp2.adicionarJogo(j2);
+        comp2.adicionarJogo(j2);
+        comp2.adicionarJogo(j1);
+
+        c1.adicionarCompra(comp1);
+        c1.adicionarCompra(comp2);
+
+        Cadastrado c2 = new Cadastrado("Cliente 2", "c2", "2", "email@exemplo.com");
+        Compra comp3 = new Compra(LocalDate.now());
+
+        comp3.adicionarJogo(j4);
+        comp3.adicionarJogo(j4);
+        comp3.adicionarJogo(j3);
+        comp3.adicionarJogo(j2);
+
+        c2.adicionarCompra(comp3);
+
+        Loja j = new Loja();
+        j.cadastraCliente(c1);
+        j.cadastraCliente(c2);
+        j.cadastraJogo(j1);
+        j.cadastraJogo(j2);
+        j.cadastraJogo(j3);
+        j.cadastraJogo(j4);
+        j.cadastraJogo(j5);
+
+        assertEquals(2, j.vezesJogoComprado(j1));
+        assertEquals(5, j.vezesJogoComprado(j2));
+        assertEquals(1, j.vezesJogoComprado(j3));
+        assertEquals(3, j.vezesJogoComprado(j4));
+        assertEquals(0, j.vezesJogoComprado(j5));
+    }
+
+    @Test
+    public void testLojaJogosMaisVendidos() {
+        Premium j1 = new Premium("Jogo 1", "Outro jogo qualquer", 110d);
+        Regular j2 = new Regular("Jogo 2", "Um jogo qualquer", 100d, 0d);
+        Regular j3 = new Regular("Jogo 3", "Outro jogo qualquer", 105d, -0.15);
+        Regular j4 = new Regular("Jogo 4", "Mais um jogo qualquer", 120d, -0.2);
+        Premium j5 = new Premium("Jogo 5", "Outro jogo qualquer", 110d);
+
+        Cadastrado c1 = new Cadastrado("Cliente 1", "c1", "1", "email@exemlo.com");
+        Compra comp1 = new Compra(LocalDate.now());
+        comp1.adicionarJogo(j1);
+        comp1.adicionarJogo(j2);
+        comp1.adicionarJogo(j2);
+        comp1.adicionarJogo(j4);
+
+        Compra comp2 = new Compra(LocalDate.now());
+        comp2.adicionarJogo(j2);
+        comp2.adicionarJogo(j4);
+        comp2.adicionarJogo(j1);
+
+        c1.adicionarCompra(comp1);
+        c1.adicionarCompra(comp2);
+
+        Cadastrado c2 = new Cadastrado("Cliente 2", "c2", "2", "email@exemplo.com");
+        Compra comp3 = new Compra(LocalDate.now());
+
+        comp3.adicionarJogo(j4);
+        comp3.adicionarJogo(j4);
+        comp3.adicionarJogo(j3);
+        comp3.adicionarJogo(j2);
+
+        c2.adicionarCompra(comp3);
+
+        Loja j = new Loja();
+        j.cadastraCliente(c1);
+        j.cadastraCliente(c2);
+        j.cadastraJogo(j1);
+        j.cadastraJogo(j2);
+        j.cadastraJogo(j3);
+        j.cadastraJogo(j4);
+        j.cadastraJogo(j5);
+
+        LinkedList<Jogo> jogosMaisVendidos = new LinkedList<>();
+        jogosMaisVendidos.add(j2);
+        jogosMaisVendidos.add(j4);
+
+        assertEquals(jogosMaisVendidos, j.jogosMaisVendidos());
+    }
+
+    @Test
+    public void testLojaJogosMenosVendidos() {
+        Premium j1 = new Premium("Jogo 1", "Outro jogo qualquer", 110d);
+        Regular j2 = new Regular("Jogo 2", "Um jogo qualquer", 100d, 0d);
+        Regular j3 = new Regular("Jogo 3", "Outro jogo qualquer", 105d, -0.15);
+        Regular j4 = new Regular("Jogo 4", "Mais um jogo qualquer", 120d, -0.2);
+        Premium j5 = new Premium("Jogo 5", "Outro jogo qualquer", 110d);
+
+        Cadastrado c1 = new Cadastrado("Cliente 1", "c1", "1", "email@exemlo.com");
+        Compra comp1 = new Compra(LocalDate.now());
+        comp1.adicionarJogo(j1);
+        comp1.adicionarJogo(j2);
+        comp1.adicionarJogo(j2);
+        comp1.adicionarJogo(j4);
+
+        Compra comp2 = new Compra(LocalDate.now());
+        comp2.adicionarJogo(j2);
+        comp2.adicionarJogo(j4);
+        comp2.adicionarJogo(j1);
+
+        c1.adicionarCompra(comp1);
+        c1.adicionarCompra(comp2);
+
+        Cadastrado c2 = new Cadastrado("Cliente 2", "c2", "2", "email@exemplo.com");
+        Compra comp3 = new Compra(LocalDate.now());
+
+        comp3.adicionarJogo(j5);
+        comp3.adicionarJogo(j4);
+        comp3.adicionarJogo(j3);
+        comp3.adicionarJogo(j2);
+
+        c2.adicionarCompra(comp3);
+
+        Loja j = new Loja();
+        j.cadastraCliente(c1);
+        j.cadastraCliente(c2);
+        j.cadastraJogo(j1);
+        j.cadastraJogo(j2);
+        j.cadastraJogo(j3);
+        j.cadastraJogo(j4);
+        j.cadastraJogo(j5);
+
+        LinkedList<Jogo> jogosMenosVendidos = new LinkedList<>();
+        jogosMenosVendidos.add(j3);
+        jogosMenosVendidos.add(j5);
+
+        assertEquals(jogosMenosVendidos, j.jogosMenosVendidos());
     }
 }

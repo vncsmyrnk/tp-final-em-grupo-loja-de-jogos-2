@@ -43,4 +43,13 @@ public abstract class Jogo implements Serializable {
                 + "; Descrição: "
                 + this.descricao;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        Jogo jogo = (Jogo) o;
+        if (jogo == null) {
+            return false;
+        }
+        return this.nome.equals(jogo.getNome());
+    }
 }

@@ -84,9 +84,9 @@ public class App {
         System.out.println("0 - Sair");
 
         // ToDo
-        // [-] Revisar cadastros
+        // [x] Revisar cadastros
         // [x] Cadastrar compra
-        // [-] Opção de historico do cliente
+        // [x] Opção de historico do cliente
         // [x] Valor de uma compra
         // [x] Valor mensal (total)
         // [x] Valor médio
@@ -425,6 +425,8 @@ public class App {
     public static void listarEstatisticasLoja() {
         System.out.println("Valor total gasto em compras: R$ " + loja.valorTotalVendido());
         System.out.println("Valor médio gasto em compras: R$ " + loja.valorMedioCompras());
+        System.out.println("\nJogos mais vendidos: " + loja.relatorioJogosMaisVendidos());
+        System.out.println("\nJogos menos vendidos: " + loja.relatorioJogosMenosVendidos());
     }
 
 }

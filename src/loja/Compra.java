@@ -3,12 +3,10 @@ package loja;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.LinkedList;
-import java.util.stream.Collectors;
 
 import loja.compra.Desconto;
 
 public class Compra implements Serializable {
-    // private DescontoCompra desconto;
     private Desconto desconto;
     private LinkedList<Jogo> jogosSelecionados;
     private LocalDate data;
@@ -82,6 +80,14 @@ public class Compra implements Serializable {
                 .stream()
                 .map(Jogo::descricaoCategoria)
                 .anyMatch((d) -> d.equals(descricaoCategoria));
+    }
+
+    public int vezesJogoComprado(Jogo jogo) {
+        long count = this.jogosSelecionados
+                .stream()
+                .filter((j) -> j.equals(jogo))
+                .count();
+        return (int) count;
     }
 
     @Override

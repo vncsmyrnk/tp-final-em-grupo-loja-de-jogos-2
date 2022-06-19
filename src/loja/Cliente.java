@@ -84,6 +84,13 @@ public abstract class Cliente implements Serializable {
                 .collect(Collectors.toCollection(LinkedList::new));
     }
 
+    public int vezesJogoComprado(Jogo jogo) {
+        return this.compras
+                .stream()
+                .mapToInt((compra) -> compra.vezesJogoComprado(jogo))
+                .reduce(0, (subtotal, vezesComprado) -> subtotal + vezesComprado);
+    }
+
     public String getNome() {
         return this.nome;
     }

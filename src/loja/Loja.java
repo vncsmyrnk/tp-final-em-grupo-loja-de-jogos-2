@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 import javax.naming.NameNotFoundException;
 
@@ -170,5 +171,54 @@ public class Loja {
 
     public Double valorMedioCompras() {
         return this.valorTotalVendido() / this.quantidadeCompras();
+    }
+
+    public Jogo jogoMaisVendido() {
+        return this.jogos
+                .stream()
+                .max((jogo1, jogo2) -> this.vezesJogoComprado(jogo1) - this.vezesJogoComprado(jogo2))
+                .orElse(null);
+    }
+
+    public LinkedList<Jogo> jogosMaisVendidos() {
+        return this.jogos
+                .stream()
+                .filter((jogo) -> this.vezesJogoComprado(jogo) == this.vezesJogoComprado(this.jogoMaisVendido()))
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    public String relatorioJogosMaisVendidos() {
+        return this.jogosMaisVendidos()
+                .stream()
+                .map((jogo) -> jogo.toString() + " (Comprado " + this.vezesJogoComprado(jogo) + " vezes)")
+                .reduce("", (subtotal, relatorioJogo) -> subtotal + "\n" + relatorioJogo);
+    }
+
+    public LinkedList<Jogo> jogosMenosVendidos() {
+        return this.jogos
+                .stream()
+                .filter((jogo) -> this.vezesJogoComprado(jogo) == this.vezesJogoComprado(this.jogoMenosVendido()))
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    public String relatorioJogosMenosVendidos() {
+        return this.jogosMenosVendidos()
+                .stream()
+                .map((jogo) -> jogo.toString() + " (Comprado " + this.vezesJogoComprado(jogo) + " vezes)")
+                .reduce("", (subtotal, relatorioJogo) -> subtotal + "\n" + relatorioJogo);
+    }
+
+    public Jogo jogoMenosVendido() {
+        return this.jogos
+                .stream()
+                .min((jogo1, jogo2) -> this.vezesJogoComprado(jogo1) - this.vezesJogoComprado(jogo2))
+                .get();
+    }
+
+    public int vezesJogoComprado(Jogo jogo) {
+        return this.clientes
+                .stream()
+                .mapToInt((cliente) -> cliente.vezesJogoComprado(jogo))
+                .reduce(0, (subtotal, vezesComprado) -> subtotal + vezesComprado);
     }
 }
