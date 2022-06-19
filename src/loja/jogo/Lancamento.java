@@ -10,7 +10,7 @@ public class Lancamento extends Jogo {
         super(nome, descricao, precoOriginal, LANCAMENTO_MODIFICADOR_PRECO);
     }
 
-    public String descricao() {
+    public String descricaoCategoria() {
         return DESCRICAO;
     }
 }

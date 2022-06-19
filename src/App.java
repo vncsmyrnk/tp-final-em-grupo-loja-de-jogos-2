@@ -1,6 +1,7 @@
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.Set;
@@ -206,7 +207,7 @@ public class App {
 
     public static void menuCompraJogo() {
         try {
-            Cliente c = cadastroClienteCompra();
+            Cliente c = interrogaUsuarioPorCliente();
             LinkedList<Jogo> jCompra = cadastroJogosCompra();
             c.adicionarCompra(new Compra(jCompra));
         } catch (Exception e) {
@@ -214,7 +215,7 @@ public class App {
         }
     }
 
-    public static Cliente cadastroClienteCompra() throws Exception {
+    public static Cliente interrogaUsuarioPorCliente() throws Exception {
         Cliente c = null;
 
         while (true) {
@@ -326,9 +327,13 @@ public class App {
         }
     }
 
-    public static String obterString(String mensagem, String exceptValue) throws Exception {
+    public static String obterString(String mensagem) {
         System.out.println(mensagem);
-        String value = teclado.nextLine();
+        return teclado.nextLine();
+    }
+
+    public static String obterString(String mensagem, String exceptValue) throws Exception {
+        String value = obterString(mensagem);
         if (value.equals(exceptValue)) {
             throw new Exception("Operação cancelada");
         }
@@ -349,10 +354,30 @@ public class App {
                     throw new Exception("Valor inválido. Pressione <enter> e tente novamente.");
                 return value;
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println("Problema ao ler o valor. " + e.getMessage());
                 continue;
             }
         }
+    }
+
+    public static LocalDate obterData(String mensagem) {
+        while (true) {
+            try {
+                exigirInteracao();
+                System.out.println(mensagem + " (formato: dd/mm/yyyy)");
+                String dataParts[] = teclado.nextLine().split("/");
+                return LocalDate.of(Integer.parseInt(dataParts[2]), Integer.parseInt(dataParts[1]),
+                        Integer.parseInt(dataParts[0]));
+            } catch (Exception e) {
+                System.out.println("Problema ao regsitrar a data. " + e.getMessage());
+                continue;
+            }
+        }
+    }
+
+    public static void exigirInteracao() {
+        System.out.println("Preesione <enter> para continuar.");
+        teclado.nextLine();
     }
 
     public static int obterValorInteger(String mensagem) {
@@ -367,9 +392,34 @@ public class App {
     }
 
     public static void listarClientesHistorico() {
-        loja.listarClientes()
-                .stream()
-                .forEach((cliente) -> System.out.println(cliente.dados()));
+        try {
+            Cliente c;
+            String opc = obterString(
+                    "Buscar por todos (t) ou por cliente, filtrando por data da compra (d) ou categoria dos jogos da compra (c)? (0 p/ sair)",
+                    "0");
+            switch (opc) {
+                case "t":
+                case "T":
+                    System.out.println(loja.historicoClientes());
+                    break;
+                case "d":
+                case "D":
+                    c = interrogaUsuarioPorCliente();
+                    LocalDate data = obterData("Insira a data para filtragem");
+                    System.out.println(c.dados(data));
+                    break;
+                case "c":
+                case "C":
+                    c = interrogaUsuarioPorCliente();
+                    String descricaoCategoria = obterString("Insira a categoria para filtragem");
+                    System.out.println(c.dados(descricaoCategoria));
+                    break;
+                default:
+                    throw new Exception("Opção inválida.");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void listarEstatisticasLoja() {

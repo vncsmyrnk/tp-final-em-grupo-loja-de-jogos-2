@@ -10,7 +10,7 @@ public class Premium extends Jogo {
         super(nome, descricao, precoOriginal, PREMIUM_MODIFICADOR_PRECO);
     }
 
-    public String descricao() {
+    public String descricaoCategoria() {
         return DESCRICAO;
     }
 }

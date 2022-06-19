@@ -9,7 +9,7 @@ public class Promocao extends Jogo {
         super(nome, descricao, precoOriginal, modificadorPreco);
     }
 
-    public String descricao() {
+    public String descricaoCategoria() {
         return DESCRICAO;
     }
 }

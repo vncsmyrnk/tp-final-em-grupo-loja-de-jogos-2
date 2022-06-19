@@ -3,6 +3,7 @@ package loja;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 import loja.compra.Desconto;
 
@@ -74,6 +75,13 @@ public class Compra implements Serializable {
         }
         relat.append("\t\t+ Total compra: R$ " + this.valor());
         return relat.toString();
+    }
+
+    public boolean hasCategoriaJogo(String descricaoCategoria) {
+        return this.jogosSelecionados
+                .stream()
+                .map(Jogo::descricaoCategoria)
+                .anyMatch((d) -> d.equals(descricaoCategoria));
     }
 
     @Override

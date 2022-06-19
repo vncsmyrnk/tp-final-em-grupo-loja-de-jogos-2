@@ -46,12 +46,11 @@ public abstract class Cliente implements Serializable {
     }
 
     public String dados(LocalDate data) {
-        LinkedList<Compra> comprasFiltrado = this.compras
-                .stream()
-                .filter((compra) -> compra.getData().equals(data))
-                .collect(Collectors.toCollection(LinkedList::new));
+        return this.dados(this.historico(data));
+    }
 
-        return this.dados(comprasFiltrado);
+    public String dados(String descricaoCategoria) {
+        return this.dados(this.historico(descricaoCategoria));
     }
 
     private String dados(LinkedList<Compra> comprasCliente) {
@@ -67,16 +66,22 @@ public abstract class Cliente implements Serializable {
         return relat.toString();
     }
 
-    public String historico() {
-        return "";
+    public LinkedList<Compra> historico() {
+        return this.compras;
     }
 
-    public String historico(LocalDate data) {
-        return "";
+    public LinkedList<Compra> historico(LocalDate data) {
+        return this.compras
+                .stream()
+                .filter((compra) -> compra.getData().equals(data))
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
-    public String historico(String categoria) {
-        return "";
+    public LinkedList<Compra> historico(String descricaoCategoria) {
+        return this.compras
+                .stream()
+                .filter((compra) -> compra.hasCategoriaJogo(descricaoCategoria))
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     public String getNome() {

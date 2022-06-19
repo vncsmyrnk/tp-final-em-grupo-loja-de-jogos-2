@@ -131,6 +131,13 @@ public class Loja {
         return this.clientes;
     }
 
+    public String historicoClientes() {
+        return this.clientes
+                .stream()
+                .map(Cliente::dados)
+                .reduce("", (subtotal, dados) -> subtotal + dados);
+    }
+
     public Jogo buscaApenasUmJogoPorNome(String nome) throws NameNotFoundException {
         return this.jogos
                 .stream()
