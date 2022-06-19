@@ -170,6 +170,9 @@ public class Loja {
     }
 
     public Double valorMedioCompras() {
+        if (this.quantidadeCompras() == 0) {
+            return 0d;
+        }
         return this.valorTotalVendido() / this.quantidadeCompras();
     }
 

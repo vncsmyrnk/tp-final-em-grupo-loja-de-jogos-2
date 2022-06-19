@@ -107,16 +107,8 @@ public abstract class Cliente implements Serializable {
         return senha;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public String getNomeUsuario() {
         return nomeUsuario;
-    }
-
-    public void setNomeUsuario(String nomeUsuario) {
-        this.nomeUsuario = nomeUsuario;
     }
 
     @Override

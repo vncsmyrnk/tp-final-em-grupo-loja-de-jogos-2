@@ -71,29 +71,31 @@ public class App {
      * @return Opção do usuário (int)
      */
     public static int menu(Scanner teclado) {
-        limparTela();
-        System.out.println("XULAMBGAMES");
-        System.out.println("==========================");
-        System.out.println("Informe a opção desejada");
-        System.out.println("1 - Cadastro de jogos");
-        System.out.println("2 - Cadastro de clientes");
-        System.out.println("3 - Cadastro de compras");
-        System.out.println("4 - Listar jogos");
-        System.out.println("5 - Histórico compras");
-        System.out.println("6 - Estatísticas da loja");
-        System.out.println("0 - Sair");
+        int opcao = 0;
+        while (true) {
+            try {
+                limparTela();
+                System.out.println("XULAMBGAMES");
+                System.out.println("==========================");
+                System.out.println("Informe a opção desejada");
+                System.out.println("1 - Cadastro de jogos");
+                System.out.println("2 - Cadastro de clientes");
+                System.out.println("3 - Cadastro de compras");
+                System.out.println("4 - Listar jogos");
+                System.out.println("5 - Histórico compras");
+                System.out.println("6 - Estatísticas da loja");
+                System.out.println("0 - Sair");
 
-        // ToDo
-        // [x] Revisar cadastros
-        // [x] Cadastrar compra
-        // [x] Opção de historico do cliente
-        // [x] Valor de uma compra
-        // [x] Valor mensal (total)
-        // [x] Valor médio
-        // [ ] Jogos extremos
-
-        int opcao = teclado.nextInt();
-        teclado.nextLine();
+                opcao = teclado.nextInt();
+                teclado.nextLine();
+                break;
+            } catch (Exception e) {
+                System.out.println("Tente novamente com valores válidos");
+                exigirInteracao();
+                teclado.nextLine();
+                continue;
+            }
+        }
         return opcao;
     }
 
