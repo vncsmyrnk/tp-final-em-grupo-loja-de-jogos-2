@@ -60,7 +60,7 @@ public abstract class Jogo implements Serializable {
     /**
      * Obtem o nome de um jogo
      * 
-     * @return
+     * @return String
      */
     public String getNome() {
         return this.nome;
