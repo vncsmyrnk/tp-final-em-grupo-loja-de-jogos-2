@@ -3,13 +3,12 @@ package loja.cliente;
 import loja.Cliente;
 import loja.Compra;
 
+/**
+ * Representa uma cliente Assinante
+ */
 public abstract class ClienteAssinante extends Cliente {
     protected Double valorMensal;
     protected Double valorDesconto;
-
-    public void setValorMensal(Double valorMensal) {
-        this.valorMensal = valorMensal;
-    }
 
     public ClienteAssinante(String nome, String nomeUsuario, String senha, Double valorMensal, Double valorDesconto) {
         super(nome, nomeUsuario, senha);
@@ -17,24 +16,24 @@ public abstract class ClienteAssinante extends Cliente {
         this.valorDesconto = valorDesconto;
     }
 
+    /**
+     * Calcula o valor de deconto em uma compra para um cliente Assinante
+     * 
+     * @param Compra c
+     * @return Double
+     */
     public final Double valorDescontoCompra(Compra c) {
         return c.valor() * this.valorDesconto;
     }
 
+    /**
+     * Calcula o valor a ser pago em uma determinada compra para um cliente
+     * Assinante
+     * 
+     * @param Compra c
+     * @return Double
+     */
     public Double valorFinalCompra(Compra c) {
         return c.valor() - this.valorDescontoCompra(c);
     }
-
-    public Double getValorDesconto() {
-        return valorDesconto;
-    }
-
-    public void setValorDesconto(Double valorDesconto) {
-        this.valorDesconto = valorDesconto;
-    }
-
-    public Double getValorMensal() {
-        return valorMensal;
-    }
-
 }

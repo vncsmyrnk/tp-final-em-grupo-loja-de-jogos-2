@@ -7,6 +7,9 @@ import java.util.LinkedList;
 import loja.Jogo;
 import loja.compra.regras.*;
 
+/**
+ * Responsavel por calcular o deconto a ser aplicado em uma determinada compra
+ */
 public class Desconto implements Serializable {
     private LinkedList<Jogo> jogos;
     private LinkedList<Regra> regras;
@@ -16,6 +19,12 @@ public class Desconto implements Serializable {
         this.carregaRegrasDesconto();
     }
 
+    /**
+     * Calcula o desconto a ser aplicado em uma compra considerando o maior desconto
+     * possivel
+     * 
+     * @return Double
+     */
     public Double calculaDesconto() {
         Collections.sort(this.regras, Collections.reverseOrder());
         for (Regra regra : this.regras) {
@@ -26,6 +35,9 @@ public class Desconto implements Serializable {
         return 0d;
     }
 
+    /**
+     * Indica as regras a serem consideradas no calculo
+     */
     public void carregaRegrasDesconto() {
         this.regras = new LinkedList<>();
         this.regras.push(new Regra10());

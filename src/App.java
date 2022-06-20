@@ -13,8 +13,10 @@ import loja.Compra;
 import loja.Jogo;
 import loja.Loja;
 
+/**
+ * Classe que realiza a interface entre o usuario e a aplicacao
+ */
 public class App {
-
     static String arqDados;
     static Scanner teclado;
     static Loja loja;
@@ -154,8 +156,10 @@ public class App {
         obj.close();
     }
 
+    /**
+     * Realiza o cadastro de um determinado jogo
+     */
     public static void menuCadastraJogo() {
-
         int categoria = 0;
         String nome = "";
         String descricao = "";
@@ -207,6 +211,10 @@ public class App {
         }
     }
 
+    /**
+     * Realiza o cadastro de uma compra com a escolha de um cliente e de um ou mais
+     * jogos
+     */
     public static void menuCompraJogo() {
         try {
             Cliente c = interrogaUsuarioPorCliente();
@@ -217,6 +225,12 @@ public class App {
         }
     }
 
+    /**
+     * Pergunta ao usuario por um determinado usuario realizado uma busca por nome
+     * 
+     * @return Cliente
+     * @throws Exception
+     */
     public static Cliente interrogaUsuarioPorCliente() throws Exception {
         Cliente c = null;
 
@@ -239,6 +253,12 @@ public class App {
         return c;
     }
 
+    /**
+     * Retorna os jogos selecionados pelo usuario a serem incluidos em uma compra
+     * 
+     * @return LinkedList<Jogo>
+     * @throws Exception
+     */
     public static LinkedList<Jogo> cadastroJogosCompra() throws Exception {
         LinkedList<Jogo> jogos = new LinkedList<>();
         Jogo j;
@@ -263,6 +283,9 @@ public class App {
         return jogos;
     }
 
+    /**
+     * Realiza o cadastro de um cliente
+     */
     public static void menuCadastraCliente() {
         int categoria = 0;
         String nome = "";
@@ -306,6 +329,11 @@ public class App {
         }
     }
 
+    /**
+     * Pergunta ao usuario se deseja realizar tal operacao
+     * 
+     * @throws Exception
+     */
     public static void interrogaUsuarioSeSim(String mensagem) throws Exception {
         System.out.println(mensagem + " (s/n)");
         String opc = teclado.nextLine();
@@ -317,6 +345,11 @@ public class App {
         }
     }
 
+    /**
+     * Pergunta ao usuario se NAO deseja realizar tal operacao
+     * 
+     * @throws Exception
+     */
     public static void interrogaUsuarioSeNao(String mensagem) throws Exception {
         System.out.println(mensagem + " (s/n)");
         String opc = teclado.nextLine();
@@ -329,11 +362,25 @@ public class App {
         }
     }
 
+    /**
+     * Obtem uma string do usuario
+     * 
+     * @param String mensagem
+     * @return String
+     */
     public static String obterString(String mensagem) {
         System.out.println(mensagem);
         return teclado.nextLine();
     }
 
+    /**
+     * Obtem uma string considerando um valor excecao
+     * 
+     * @param String mensagem
+     * @param String exceptValue
+     * @return String
+     * @throws Exception
+     */
     public static String obterString(String mensagem, String exceptValue) throws Exception {
         String value = obterString(mensagem);
         if (value.equals(exceptValue)) {
@@ -342,11 +389,25 @@ public class App {
         return value;
     }
 
+    /**
+     * Obtem um valor Double do usuario
+     * 
+     * @param String mensagem
+     * @return Double
+     */
     public static Double obterValorDouble(String mensagem) {
         System.out.println(mensagem);
         return Double.parseDouble(teclado.nextLine());
     }
 
+    /**
+     * Obtem um valor Double do usuario considerando valores minimo e maximo
+     * 
+     * @param String mensagem
+     * @param Double minValue
+     * @param Double maxValue
+     * @return Double
+     */
     public static Double obterValorDouble(String mensagem, Double minValue, Double maxValue) {
         while (true) {
             try {
@@ -362,6 +423,12 @@ public class App {
         }
     }
 
+    /**
+     * Obtem uma data do usuario considerando o formato padrao do sistema
+     * 
+     * @param String mensagem
+     * @return LocalDate
+     */
     public static LocalDate obterData(String mensagem) {
         while (true) {
             try {
@@ -377,22 +444,37 @@ public class App {
         }
     }
 
-    public static void exigirInteracao() {
-        System.out.println("Preesione <enter> para continuar.");
-        teclado.nextLine();
-    }
-
+    /**
+     * Obtem um valor int do usuario
+     * 
+     * @param String mensagem
+     * @return int
+     */
     public static int obterValorInteger(String mensagem) {
         System.out.println(mensagem);
         return Integer.parseInt(teclado.nextLine());
     }
 
+    /**
+     * Exibe uma mensagem ao usuario que deve ser confirmada
+     */
+    public static void exigirInteracao() {
+        System.out.println("Preesione <enter> para continuar.");
+        teclado.nextLine();
+    }
+
+    /**
+     * Imprime os jogos da Loja
+     */
     public static void listarJogos() {
         loja.listarJogos()
                 .stream()
                 .forEach((jogo) -> System.out.println(jogo.toString()));
     }
 
+    /**
+     * Imprime o historico de compras dos clientes da loja
+     */
     public static void listarClientesHistorico() {
         try {
             Cliente c;
@@ -424,6 +506,9 @@ public class App {
         }
     }
 
+    /**
+     * Imprime as estaticas gerais da loja
+     */
     public static void listarEstatisticasLoja() {
         System.out.println("Valor total gasto em compras: R$ " + loja.valorTotalVendido());
         System.out.println("Valor médio gasto em compras: R$ " + loja.valorMedioCompras());

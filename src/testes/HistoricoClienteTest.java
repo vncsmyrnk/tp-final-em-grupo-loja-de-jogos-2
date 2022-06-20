@@ -13,6 +13,9 @@ import loja.jogo.Lancamento;
 import loja.jogo.Premium;
 import loja.jogo.Promocao;
 
+/**
+ * Realiza os testes relativos a historico de compras
+ */
 public class HistoricoClienteTest {
     @Test
     public void testHistoricoPorData() {

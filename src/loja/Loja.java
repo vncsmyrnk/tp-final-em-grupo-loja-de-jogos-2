@@ -15,8 +15,10 @@ import loja.cliente.assinante.Empolgado;
 import loja.cliente.assinante.Fanatico;
 import loja.jogo.*;
 
+/**
+ * Responsavel por gerenciar uma loja de jogos considerando clientes e jogos
+ */
 public class Loja {
-
     private LinkedList<Jogo> jogos;
     private LinkedList<Cliente> clientes;
     private static final String arquivoClientes = "./dados/clientes.bin";
@@ -28,42 +30,110 @@ public class Loja {
 
     }
 
+    /**
+     * Adiciona um cliente a loja
+     * 
+     * @param Cliente cliente
+     */
     public void cadastraCliente(Cliente cliente) {
         this.clientes.add(cliente);
     }
 
+    /**
+     * Adiciona um jogo a loja
+     * 
+     * @param Jogo jogo
+     */
     public void cadastraJogo(Jogo jogo) {
         this.jogos.add(jogo);
     }
 
+    /**
+     * Adiciona um jogo Lancamento a loja
+     * 
+     * @param String nome
+     * @param String descricao
+     * @param Double preco
+     */
     public void cadastrarLancamento(String nome, String descricao, double preco) {
         this.cadastraJogo(new Lancamento(nome, descricao, preco));
     }
 
+    /**
+     * Adiciona um jogo Premium a loja
+     * 
+     * @param String nome
+     * @param String descricao
+     * @param Double preco
+     */
     public void cadastrarPremium(String nome, String descricao, double preco) {
         this.cadastraJogo(new Premium(nome, descricao, preco));
     }
 
+    /**
+     * Adiciona um jogo Regular a loja
+     * 
+     * @param String nome
+     * @param String descricao
+     * @param Double preco
+     * @param Double modificador
+     */
     public void cadastrarRegular(String nome, String descricao, double preco, double modificador) {
         this.cadastraJogo(new Regular(nome, descricao, preco, modificador));
     }
 
+    /**
+     * Adiciona um jogo Promocao a loja
+     * 
+     * @param String nome
+     * @param String descricao
+     * @param Double preco
+     * @param Double modificador
+     */
     public void cadastrarPromocao(String nome, String descricao, double preco, double modificador) {
         this.cadastraJogo(new Promocao(nome, descricao, preco, modificador));
     }
 
+    /**
+     * Adiciona um cliente Cadastrado a loja
+     * 
+     * @param String nome
+     * @param int    categoria
+     * @param String nomeUsuario
+     * @param String senha
+     * @param String email
+     */
     public void clienteCadastrado(String nome, int categoria, String nomeUsuario, String senha, String email) {
         this.cadastraCliente(new Cadastrado(nome, nomeUsuario, senha, email));
     }
 
+    /**
+     * Adiciona um cliente Fanatico a loja
+     * 
+     * @param String nome
+     * @param int    categoria
+     * @param String nomeUsuario
+     * @param String senha
+     */
     public void clienteFanatico(String nome, int categoria, String nomeUsuario, String senha) {
         this.cadastraCliente(new Fanatico(nome, nomeUsuario, senha));
     }
 
+    /**
+     * Adiciona um cliente Empolgado a loja
+     * 
+     * @param String nome
+     * @param int    categoria
+     * @param String nomeUsuario
+     * @param String senha
+     */
     public void clienteEmpolgado(String nome, int categoria, String nomeUsuario, String senha) {
         this.cadastraCliente(new Empolgado(nome, nomeUsuario, senha));
     }
 
+    /**
+     * Realiza a gravacao dos dados da loja em um determinado arquivo
+     */
     public void gravaDados() {
         try {
             this.gravaDadosCliente();
@@ -73,6 +143,11 @@ public class Loja {
         }
     }
 
+    /**
+     * Realiza a gravacao dos dados de clientes da loja em um determinado arquivo
+     * 
+     * @throws IOException
+     */
     public void gravaDadosCliente() throws IOException {
         FileOutputStream fout = new FileOutputStream(arquivoClientes);
         ObjectOutputStream oos = new ObjectOutputStream(fout);
@@ -82,6 +157,11 @@ public class Loja {
         oos.close();
     }
 
+    /**
+     * Realiza a gravacao dos dados de jogos da loja em um determinado arquivo
+     * 
+     * @throws IOException
+     */
     public void gravaDadosJogos() throws IOException {
         FileOutputStream fout = new FileOutputStream(arquivojogos);
         ObjectOutputStream oos = new ObjectOutputStream(fout);
@@ -91,6 +171,10 @@ public class Loja {
         oos.close();
     }
 
+    /**
+     * Realiza a leitura das informacoes armazenadas previamente da loja em um
+     * determiado arquivo
+     */
     public void leDados() {
         try {
             this.jogos = this.leDadosJogos();
@@ -100,6 +184,14 @@ public class Loja {
         }
     }
 
+    /**
+     * Realiza a leitura dos dados de clientes previamente armazenados em um
+     * determinado arquivo
+     * 
+     * @return LinkedList<Cliente>
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public LinkedList<Cliente> leDadosClientes() throws IOException, ClassNotFoundException {
         LinkedList<Cliente> clientes = new LinkedList<>();
         FileInputStream dados = new FileInputStream(arquivoClientes);
@@ -112,6 +204,14 @@ public class Loja {
         return clientes;
     }
 
+    /**
+     * Realiza a leitura dos dados de jogos previamente armazenados em um
+     * determinado arquivo
+     * 
+     * @return LinkedList<Jogo>
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public LinkedList<Jogo> leDadosJogos() throws IOException, ClassNotFoundException {
         LinkedList<Jogo> jogos = new LinkedList<>();
         FileInputStream dados = new FileInputStream(arquivojogos);
@@ -124,14 +224,29 @@ public class Loja {
         return jogos;
     }
 
+    /**
+     * Obtem os jogos da loja
+     * 
+     * @return LinkedList<Jogo>
+     */
     public LinkedList<Jogo> listarJogos() {
         return this.jogos;
     }
 
+    /**
+     * Obtem os clientes da loja
+     * 
+     * @return LinkedList<Cliente>
+     */
     public LinkedList<Cliente> listarClientes() {
         return this.clientes;
     }
 
+    /**
+     * Retorna um relatorio com o historico de compras dos clientes da loja
+     * 
+     * @return String
+     */
     public String historicoClientes() {
         return this.clientes
                 .stream()
@@ -139,6 +254,13 @@ public class Loja {
                 .reduce("", (subtotal, dados) -> subtotal + dados);
     }
 
+    /**
+     * Busca por um determinado jogo pelo seu nome
+     * 
+     * @param String nome
+     * @return Jogo
+     * @throws NameNotFoundException
+     */
     public Jogo buscaApenasUmJogoPorNome(String nome) throws NameNotFoundException {
         return this.jogos
                 .stream()
@@ -147,6 +269,13 @@ public class Loja {
                 .orElseThrow(() -> new NameNotFoundException());
     }
 
+    /**
+     * Busca por um determinado cliente por nome
+     * 
+     * @param String nome
+     * @return Cliente
+     * @throws NameNotFoundException
+     */
     public Cliente buscaApenasUmClientePorNome(String nome) throws NameNotFoundException {
         return this.clientes
                 .stream()
@@ -155,6 +284,11 @@ public class Loja {
                 .orElseThrow(() -> new NameNotFoundException());
     }
 
+    /**
+     * Calcula o valor total gasto pelos clientes nas compras
+     * 
+     * @return Double
+     */
     public Double valorTotalVendido() {
         return this.clientes
                 .stream()
@@ -162,6 +296,11 @@ public class Loja {
                 .sum();
     }
 
+    /**
+     * Calcula o total de compras realizadas na loja
+     * 
+     * @return int
+     */
     public int quantidadeCompras() {
         return this.clientes
                 .stream()
@@ -169,6 +308,11 @@ public class Loja {
                 .sum();
     }
 
+    /**
+     * Calcula o valor medio gasto nas compras da loja
+     * 
+     * @return Double
+     */
     public Double valorMedioCompras() {
         if (this.quantidadeCompras() == 0) {
             return 0d;
@@ -176,6 +320,11 @@ public class Loja {
         return this.valorTotalVendido() / this.quantidadeCompras();
     }
 
+    /**
+     * Obtem o jogo mais vendido da loja
+     * 
+     * @return Jogo
+     */
     public Jogo jogoMaisVendido() {
         return this.jogos
                 .stream()
@@ -183,6 +332,12 @@ public class Loja {
                 .orElse(null);
     }
 
+    /**
+     * Obtem os jogos mais vendidos da loja caso existam varios jogos com a maior
+     * quantidade
+     * 
+     * @return LinkedList<Jogo>
+     */
     public LinkedList<Jogo> jogosMaisVendidos() {
         return this.jogos
                 .stream()
@@ -190,6 +345,11 @@ public class Loja {
                 .collect(Collectors.toCollection(LinkedList::new));
     }
 
+    /**
+     * Retorna um relatorio com os jogos mais vendidos
+     * 
+     * @return String
+     */
     public String relatorioJogosMaisVendidos() {
         return this.jogosMaisVendidos()
                 .stream()
@@ -197,20 +357,11 @@ public class Loja {
                 .reduce("", (subtotal, relatorioJogo) -> subtotal + "\n" + relatorioJogo);
     }
 
-    public LinkedList<Jogo> jogosMenosVendidos() {
-        return this.jogos
-                .stream()
-                .filter((jogo) -> this.vezesJogoComprado(jogo) == this.vezesJogoComprado(this.jogoMenosVendido()))
-                .collect(Collectors.toCollection(LinkedList::new));
-    }
-
-    public String relatorioJogosMenosVendidos() {
-        return this.jogosMenosVendidos()
-                .stream()
-                .map((jogo) -> jogo.toString() + " (Comprado " + this.vezesJogoComprado(jogo) + " vezes)")
-                .reduce("", (subtotal, relatorioJogo) -> subtotal + "\n" + relatorioJogo);
-    }
-
+    /**
+     * Obtem o jogo menos vendido da loja
+     * 
+     * @return Jogo
+     */
     public Jogo jogoMenosVendido() {
         return this.jogos
                 .stream()
@@ -218,6 +369,37 @@ public class Loja {
                 .get();
     }
 
+    /**
+     * Obtem os jogos menos vendidos da loja caso existam varios jogos com a menor
+     * quantidade
+     * 
+     * @return LinkedList<Jogo>
+     */
+    public LinkedList<Jogo> jogosMenosVendidos() {
+        return this.jogos
+                .stream()
+                .filter((jogo) -> this.vezesJogoComprado(jogo) == this.vezesJogoComprado(this.jogoMenosVendido()))
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    /**
+     * Retorna um relatorio com os jogos menos vendidos
+     * 
+     * @return String
+     */
+    public String relatorioJogosMenosVendidos() {
+        return this.jogosMenosVendidos()
+                .stream()
+                .map((jogo) -> jogo.toString() + " (Comprado " + this.vezesJogoComprado(jogo) + " vezes)")
+                .reduce("", (subtotal, relatorioJogo) -> subtotal + "\n" + relatorioJogo);
+    }
+
+    /**
+     * Retorna o numero de vezes que um determinado foi comprado na loja
+     * 
+     * @param Jogo jogo
+     * @return int
+     */
     public int vezesJogoComprado(Jogo jogo) {
         return this.clientes
                 .stream()

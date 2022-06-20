@@ -2,6 +2,9 @@ package loja.jogo;
 
 import loja.Jogo;
 
+/**
+ * Representa um jogo Premium
+ */
 public class Premium extends Jogo {
     public static final Double PREMIUM_MODIFICADOR_PRECO = 0d;
     public static final String DESCRICAO = "Premium";
@@ -10,6 +13,11 @@ public class Premium extends Jogo {
         super(nome, descricao, precoOriginal, PREMIUM_MODIFICADOR_PRECO);
     }
 
+    /**
+     * Descreve a categoria do jogo Premium
+     * 
+     * @return String
+     */
     public String descricaoCategoria() {
         return DESCRICAO;
     }

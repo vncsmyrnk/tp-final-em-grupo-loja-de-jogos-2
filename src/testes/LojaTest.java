@@ -14,6 +14,9 @@ import loja.cliente.Cadastrado;
 import loja.cliente.assinante.Empolgado;
 import loja.jogo.*;
 
+/**
+ * Realiza os testes relativos a operacoes da loja
+ */
 public class LojaTest {
     @Test
     public void testLojaValorMensal() {

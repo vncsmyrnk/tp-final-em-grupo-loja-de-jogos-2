@@ -2,6 +2,9 @@ package loja.jogo;
 
 import loja.Jogo;
 
+/**
+ * Representa um jogo Regular
+ */
 public class Regular extends Jogo {
     public static final String DESCRICAO = "Regular";
 
@@ -9,6 +12,11 @@ public class Regular extends Jogo {
         super(nome, descricao, precoOriginal, modificadorPreco);
     }
 
+    /**
+     * Descreve a categoria do jogo Regular
+     * 
+     * @return String
+     */
     public String descricaoCategoria() {
         return DESCRICAO;
     }

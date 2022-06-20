@@ -14,6 +14,9 @@ import loja.jogo.Lancamento;
 import loja.jogo.Premium;
 import loja.jogo.Regular;
 
+/**
+ * Realiza os testes relativos a compras
+ */
 public class CompraTest {
     @Test
     public void testValorCompra1() {
