@@ -1,1 +1,24 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=7696731&assignment_repo_type=AssignmentRepo)
+# Loja de Jogos
+
+Este é um projeto em java para a gerência de informações de uma loja de jogos.
+
+## Docker
+
+Um container Docker poderá ser utilizado para executar a aplicação. O seguinte comando instancia um container:
+
+```bash
+docker run -it --rm -v "$(pwd)":/usr/src/app maven:3.3-jdk-8 bash
+```
+
+## Execução
+
+```bash
+mvn clean install
+mvn exec:java -Dexec.mainClass="com.lojaJogos.App"
+```
+
+## Testes
+
+```bash
+mvn clean test
+```
