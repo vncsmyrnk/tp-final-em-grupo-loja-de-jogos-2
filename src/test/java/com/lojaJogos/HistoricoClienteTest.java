@@ -1,17 +1,16 @@
-package testes;
+package com.lojaJogos;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import loja.Compra;
-import loja.cliente.assinante.Empolgado;
-import loja.jogo.Lancamento;
-import loja.jogo.Premium;
-import loja.jogo.Promocao;
+import com.lojaJogos.cliente.assinante.Empolgado;
+import com.lojaJogos.jogo.Lancamento;
+import com.lojaJogos.jogo.Premium;
+import com.lojaJogos.jogo.Promocao;
 
 /**
  * Realiza os testes relativos a historico de compras

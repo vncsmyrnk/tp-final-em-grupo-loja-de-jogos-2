@@ -22,3 +22,13 @@ mvn exec:java -Dexec.mainClass="com.lojaJogos.App"
 ```bash
 mvn clean test
 ```
+
+Os reports de cobertura dos testes estarão em `target/site/jacoco/index.html`
+
+### Reports
+
+```bash
+mvn surefire-report:report
+```
+
+O report geral de testes estará em `target/site/surefire-report.html`.

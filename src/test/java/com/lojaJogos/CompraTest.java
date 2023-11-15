@@ -1,18 +1,17 @@
-package testes;
+package com.lojaJogos;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import loja.Compra;
-import loja.cliente.Cadastrado;
-import loja.cliente.assinante.Empolgado;
-import loja.cliente.assinante.Fanatico;
-import loja.jogo.Lancamento;
-import loja.jogo.Premium;
-import loja.jogo.Regular;
+import com.lojaJogos.cliente.Cadastrado;
+import com.lojaJogos.cliente.assinante.Empolgado;
+import com.lojaJogos.cliente.assinante.Fanatico;
+import com.lojaJogos.jogo.Lancamento;
+import com.lojaJogos.jogo.Premium;
+import com.lojaJogos.jogo.Regular;
 
 /**
  * Realiza os testes relativos a compras

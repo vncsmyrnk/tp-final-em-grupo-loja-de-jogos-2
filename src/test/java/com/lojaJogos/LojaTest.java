@@ -1,18 +1,15 @@
-package testes;
+package com.lojaJogos;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import loja.Compra;
-import loja.Jogo;
-import loja.Loja;
-import loja.cliente.Cadastrado;
-import loja.cliente.assinante.Empolgado;
-import loja.jogo.*;
+import com.lojaJogos.cliente.Cadastrado;
+import com.lojaJogos.cliente.assinante.Empolgado;
+import com.lojaJogos.jogo.*;
 
 /**
  * Realiza os testes relativos a operacoes da loja
