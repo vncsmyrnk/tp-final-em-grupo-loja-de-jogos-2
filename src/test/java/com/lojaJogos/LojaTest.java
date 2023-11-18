@@ -1,9 +1,12 @@
 package com.lojaJogos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
+
+import javax.naming.NameNotFoundException;
 
 import org.junit.jupiter.api.Test;
 
@@ -109,6 +112,12 @@ public class LojaTest {
 
         Double valorFinalEsperado = 351.55;
         assertEquals(valorFinalEsperado, j.valorMedioCompras());
+    }
+
+    @Test
+    public void testLojaValorMedioVazio() {
+        Loja j = new Loja();
+        assertEquals(0d, j.valorMedioCompras());
     }
 
     @Test
@@ -348,5 +357,87 @@ public class LojaTest {
         jogosMenosVendidos.add(j5);
 
         assertEquals(jogosMenosVendidos, j.jogosMenosVendidos());
+    }
+
+    @Test
+    public void testCadastroJogoLancamento() {
+        Loja j = new Loja();
+        j.cadastrarLancamento("Lancamento1", "Descricao", 100d);
+
+        Lancamento jogoComparativo = new Lancamento("Lancamento1", "Descricao", 100d);
+        LinkedList<Jogo> jogosLoja = j.listarJogos();
+        assertEquals(jogoComparativo, jogosLoja.pop());
+    }
+
+    @Test
+    public void testCadastroJogoPremium() {
+        Loja j = new Loja();
+        j.cadastrarPremium("Premium1", "Descricao", 100d);
+
+        Premium jogoComparativo = new Premium("Premium1", "Descricao", 100d);
+        LinkedList<Jogo> jogosLoja = j.listarJogos();
+        assertEquals(jogoComparativo, jogosLoja.pop());
+    }
+
+    @Test
+    public void testCadastroJogoRegular() {
+        Loja j = new Loja();
+        j.cadastrarRegular("Regular1", "Descricao", 100d, 0d);
+
+        Regular jogoComparativo = new Regular("Regular1", "Descricao", 100d, 0d);
+        LinkedList<Jogo> jogosLoja = j.listarJogos();
+        assertEquals(jogoComparativo, jogosLoja.pop());
+    }
+
+    @Test
+    public void testCadastroJogoPromocao() {
+        Loja j = new Loja();
+        j.cadastrarPromocao("Promocao1", "Descricao", 100d, 0d);
+
+        Promocao jogoComparativo = new Promocao("Promocao1", "Descricao", 100d, 0d);
+        LinkedList<Jogo> jogosLoja = j.listarJogos();
+        assertEquals(jogoComparativo, jogosLoja.pop());
+    }
+
+    @Test
+    public void testBuscaJogoPorNome() throws NameNotFoundException {
+        Loja j = new Loja();
+        Regular j1 = new Regular("Jogo1", "Desc", 100d, 0d);
+        Premium j2 = new Premium("Jogo2", "Desc", 105d);
+        j.cadastraJogo(j1);
+        j.cadastraJogo(j2);
+
+        Jogo jogoEncontrado = j.buscaApenasUmJogoPorNome("Jogo2");
+        assertEquals(j2, jogoEncontrado);
+    }
+
+    @Test
+    public void testBuscaJogoPorNomeInexistente() throws NameNotFoundException {
+        Loja j = new Loja();
+        Regular j1 = new Regular("Jogo1", "Desc", 100d, 0d);
+        j.cadastraJogo(j1);
+
+        assertThrows(NameNotFoundException.class, () -> j.buscaApenasUmJogoPorNome("Jogo5"));
+    }
+
+    @Test
+    public void testBuscaClientePorNome() throws NameNotFoundException {
+        Loja j = new Loja();
+        Cadastrado c1 = new Cadastrado("Cliente1", "c1", "1", "email@exemplo.com");
+        Empolgado c2 = new Empolgado("Cliente2", "c2", "2");
+        j.cadastraCliente(c1);
+        j.cadastraCliente(c2);
+
+        Cliente clienteEncontrado = j.buscaApenasUmClientePorNome("Cliente1");
+        assertEquals(c1, clienteEncontrado);
+    }
+
+    @Test
+    public void testBuscaClientePorNomeInexistente() throws NameNotFoundException {
+        Loja j = new Loja();
+        Cadastrado c1 = new Cadastrado("Cliente1", "c1", "1", "email@exemplo.com");
+        j.cadastraCliente(c1);
+
+        assertThrows(NameNotFoundException.class, () -> j.buscaApenasUmClientePorNome("Cliente7"));
     }
 }
