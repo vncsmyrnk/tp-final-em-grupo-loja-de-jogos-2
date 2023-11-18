@@ -224,4 +224,18 @@ public abstract class Cliente implements Serializable {
     public String toString() {
         return "Nome: " + this.nome + "; Usuário: " + this.nomeUsuario;
     }
+
+    /**
+     * Sobrescreve o metodo "equals" comparando clientes por nome
+     * 
+     * @return boolean
+     */
+    @Override
+    public boolean equals(Object o) {
+        Cliente cliente = (Cliente) o;
+        if (cliente == null) {
+            return false;
+        }
+        return this.nome.equals(cliente.getNome());
+    }
 }

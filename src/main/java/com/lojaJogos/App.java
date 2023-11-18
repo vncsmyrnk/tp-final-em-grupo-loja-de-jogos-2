@@ -171,6 +171,16 @@ public class App {
             System.out.println("4 - Promoção");
             categoria = Integer.parseInt(obterString("0 - Cancelar", "0"));
 
+            switch (categoria) {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    break;
+                default:
+                    throw new Exception("Opção inválida.");
+            }
+
             System.out.println("Digite o nome do jogo:");
             nome = teclado.nextLine();
 
@@ -296,6 +306,15 @@ public class App {
             System.out.println("2 - Fanático");
             System.out.println("3 - Cadastrado");
             categoria = Integer.parseInt(obterString("0 - Cancelar", "0"));
+
+            switch (categoria) {
+                case 1:
+                case 2:
+                case 3:
+                    break;
+                default:
+                    throw new Exception("Opção inválida.");
+            }
 
             System.out.println("Digite o nome do Cliente:");
             nome = teclado.nextLine();
